@@ -18,237 +18,201 @@
 //   }
 // }
 
+import 'package:autism_app/UI/Screen/SignLog/LogIn/moreDetail.dart';
 import 'package:autism_app/UI/Screen/StartPage.dart';
+import 'package:autism_app/UI/Widgets/FreeWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CreateNewAccount extends StatefulWidget {
+import '../../../helper/constant.dart';
+import '../SignIn/signIn.dart';
+
+class LogIn extends StatefulWidget {
   State<StatefulWidget> createState() {
-    return CreateNewAccount_state();
+    return LogIn_s();
   }
 }
 
-class CreateNewAccount_state extends State<CreateNewAccount> {
-  bool reme_icon = false;
-  final form_key = GlobalKey<FormState>();
-  bool check_box = false;
-  String remember_me = 'remember me';
-  bool? shared_value;
-  var controller_username = TextEditingController();
-  var controller_password = TextEditingController();
-
-  shared_SetData(bool data) async {
-    SharedPreferences prefc = await SharedPreferences.getInstance();
-    return prefc.setBool(remember_me, data);
-  }
-
-  shared_GetData() async {
-    SharedPreferences prefc = await SharedPreferences.getInstance();
-    shared_value = prefc.getBool(remember_me);
-    setState(() {});
-  }
-
-  shared_Navicator() async {
-    SharedPreferences prefc = await SharedPreferences.getInstance();
-    if (shared_value == true) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => StartPage()));
-    }
-  }
-
+class LogIn_s extends State<LogIn> {
+  final _form_key = GlobalKey<FormState>();
+  var _emailController = TextEditingController();
+  var _passController = TextEditingController();
+  bool _passEye = false;
   @override
   void initState() {
     super.initState();
-    shared_GetData();
-    shared_Navicator();
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white30,
-      body: GestureDetector(
-        onTap: () {
-          setState(() {});
-        },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
+    double _height = MediaQuery.of(context).size.height;
+    double _width = MediaQuery.of(context).size.width;
+
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        body: Stack(
           children: [
             Container(
-              height: 100,
-              width: 100,
-              child: Image.asset('asset/image/bee.gif'),
+              child: const Image(
+                fit: BoxFit.fill,
+                image: AssetImage('assets/image/backscreen.png'),
+              ),
             ),
-            Text(
-              'انشاء حساب جديد  ',
-              style: TextStyle(fontSize: 50, color: Colors.redAccent[100]),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // ButtonBar(
-                  //   alignment: MainAxisAlignment.spaceAround,
-                  //   children: [
-                  //     TextButton(
-                  //       onPressed: (){},
-                  //       child: Text('Sing in',
-                  //         style: TextStyle(
-                  //             fontSize: 30,
-                  //             fontWeight: FontWeight.bold,
-                  //             fontStyle: FontStyle.italic
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     TextButton(
-                  //       onPressed: (){},
-                  //       child: Text('Sing up',
-                  //         style: TextStyle(
-                  //             fontSize: 30,
-                  //             fontWeight: FontWeight.bold,
-                  //             fontStyle: FontStyle.italic
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Form(
-                      key: form_key,
-                      child: Column(
-                        children: [
-                          Align(
-                              alignment: Alignment.centerRight,
-                              child: Text(
-                                'البريد الالكتروني ',
-                                style: TextStyle(
-                                    fontSize: 22, color: Colors.black),
-                              )),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          TextFormField(
-                            controller: controller_username,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(13)),
-                              hintText: 'Example@gmail.com',
-                              //label: Align(alignment:Alignment.topRight,child: Text(' Example@gmail.com ',)),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Valid Username';
-                              }
-                              return null;
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 15,),
+                Container(
+                  height: 100,
+                  width: 100,
+                  child: Image.asset('assets/image/signicon.png'),
+                ),
+                Text(
+                  'انشاء حساب جديد  ',
+                  style: TextStyle(fontSize: 16, color: MyColor().pink),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Form(
+                    key: _form_key,
+                    child: Column(
+                      children: [
+                        FreeWidget().textformfield(
+                          lableText: 'البريد الإلكتروني',
+                          controller: _emailController,
+                          errorTitle: 'اعد ادخال البريد الإلكتروني',
+                          hintTitle: 'Example@gmail.com',
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        FreeWidget().textformfield(
+                          lableText: 'الرقم السري',
+                          controller: _passController,
+                          errorTitle: 'أعد ادخال الرقم السري',
+                          hintTitle: '******* ',
+                          passwordMod: !_passEye,
+                          type: TextInputType.number,
+                          perfixicon: IconButton(
+                            onPressed: () {
+                              setState(() => _passEye = !_passEye);
                             },
+                            icon: _passEye
+                                ? const Icon(
+                                    Icons.remove_red_eye,
+                                    color: Colors.blue,
+                                  )
+                                : Icon(Icons.remove_red_eye_outlined),
                           ),
-                          Align(
-                              alignment: Alignment.topRight,
-                              child: Text(
-                                'الرقم السري',
-                                style: TextStyle(
-                                    fontSize: 22, color: Colors.black),
-                              )),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          TextFormField(
-                            controller: controller_password,
-                            keyboardType: TextInputType.number,
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(13)),
-                              hintText: '********',
-                              //label: Align(alignment: Alignment.topRight,child: Text('********'),),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return ' Valid Password';
-                              }
-                              return null;
-                            },
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ),
-            ElevatedButton(
-              autofocus: false,
-              onPressed: () {
-                if (form_key.currentState!.validate()) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext) => StartPage()));
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      duration: Duration(seconds: 1),
-                      content: Text('invalid User name or Password')));
-                }
-              },
-              child: Container(
-                height: 60,
-                width: MediaQuery.of(context).size.width * 0.85,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.pinkAccent[100],
                 ),
-                child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'انشاء حساب  ',
-                      style: TextStyle(fontSize: 25, color: Colors.black54),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_form_key.currentState!.validate()) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext) => MoreDetail()));
+                    } else {
+                      FreeWidget().snackbar(
+                          context: context,
+                          content: 'اعد ادخال البيانات صحيحة',
+                          duration: 2);
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                      shadowColor: MyColor().gray, primary: MyColor().pink),
+                  child: SizedBox(
+                    height: 50,
+                    width: _width*0.85,
+                    child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          'انشاء حساب جديد ',
+                          style: TextStyle(fontSize: 14, color: MyColor().gray),
+                        )),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+
+                SizedBox(
+                    height: 20,
+                    width: 350,
+                    child: Divider(
+                      color: Colors.black26,
                     )),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButton(
-                    onPressed: () {
-                      print('open ForgetPassword Page');
-                    },
-                    child: Text(
-                      'نسيت كلمه المرور ؟',
-                      style: TextStyle(fontSize: 20, color: Colors.black),
-                    )),
-                TextButton(
-                    onPressed: () {
-                      print('remember me');
-                    },
-                    child: Text(
-                      'تذكرني',
-                      style: TextStyle(fontSize: 20, color: Colors.black),
-                    )),
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () => FreeWidget().snackbar(
+                            context: context,
+                            content: 'Sign in with Face Account',
+                            duration: 2),
+                        child: CircleAvatar(
+                          child: Image(
+                            image: AssetImage('assets/image/faceicon.png'),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 30,
+                      ),
+                      GestureDetector(
+                        onTap: () => FreeWidget().snackbar(
+                            context: context,
+                            content: 'Sign in with Gmail Account',
+                            duration: 2),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: 25,
+                          child: Image(
+                            image: AssetImage('assets/image/gmail.png'),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20,),
+                GestureDetector(
+                  onTap: () {
+                    print('Open Sign In Screen');
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SignIn()));
+                  },
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'هل لديك حساب بالفعل؟ ',
+                      style: TextStyle(
+                          color: MyColor().gray,
+                          fontSize: 14,
+                          fontFamily: 'Alexandria'),
+                      children: [
+                        TextSpan(
+
+                          text: 'دخول ',
+                          style: TextStyle(color: MyColor().pink, fontSize: 14),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                )
               ],
             ),
-            SizedBox(
-                height: 20,
-                width: 400,
-                child: Divider(
-                  color: Colors.black26,
-                )),
-            Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.facebook,size: 50,),
-                  SizedBox(width: 20,),
-                  Icon(Icons.g_mobiledata,size: 50,),
-                ],
-              ),
-            ),
-            Align(alignment: Alignment.center,child: Text('هل لديك حساب جديد؟ دخول',style: TextStyle(fontSize: 30,color: Colors.black),),),
-            SizedBox(height: 100,)
           ],
         ),
       ),

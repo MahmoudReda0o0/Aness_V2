@@ -8,18 +8,15 @@ class SplashScreen {
   static SplashScreen_set({var page}) {
     return AnimatedSplashScreen(
       backgroundColor: Color(0xFFf79999),
-      curve: Curves.linear,
+      curve: Curves.bounceOut,
       duration:5000,
+      splashIconSize: 250,
       splash: Container(
-        height: 270,
-        width: 270,
-        child: Container(
-          height: 300,
-          width: 300,
-          child: Image(
-            fit: BoxFit.fill,
-            image: AssetImage('assets/image/splash.png'),
-          ),
+        height: 230,
+        width: 150,
+        child: Image(
+          fit: BoxFit.fill,
+          image: AssetImage('assets/image/splash.png'),
         ),
       ),
       nextScreen: SignIn(),

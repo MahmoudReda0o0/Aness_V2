@@ -1,45 +1,31 @@
-// import 'package:flutter/material.dart';
-//
-// class SignIn extends StatelessWidget{
-//   Widget build(BuildContext context){
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Sign In '),
-//         centerTitle: true,
-//       ),
-//       body: Center(
-//         child: Container(
-//           height: 300,
-//           width: 300,
-//           color: Colors.green,
-//         ),
-//       ),
-//     );
-//   }
-// }
-
+import 'package:autism_app/UI/Screen/SignLog/LogIn/LogIn.dart';
 import 'package:autism_app/UI/Screen/StartPage.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../Widgets/FreeWidget.dart';
 import '../../../helper/constant.dart';
+import '../../Test/otpCode.dart';
+import '../ForgetPassword/ForgetPasword.dart';
 
 class SignIn extends StatefulWidget {
+  const SignIn({Key? key}) : super(key: key);
+
+  @override
   State<StatefulWidget> createState() {
     return SignIn_state();
   }
 }
 
 class SignIn_state extends State<SignIn> {
-  bool _rememberIcon = true;
+  bool _rememberIcon = false;
   bool _passEye = false;
   final _formKey = GlobalKey<FormState>();
   bool _checkBox = false;
   String _rememberMe = 'remember me';
   bool? _sharedValue;
-  var _emailConntroller = TextEditingController();
-  var _passwordController = TextEditingController();
+  final _emailConntroller = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   void initState() {
@@ -51,17 +37,18 @@ class SignIn_state extends State<SignIn> {
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height;
     double _width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      // backgroundColor: Colors.white30,
-      body: GestureDetector(
-        onTap: () {
-          FocusManager.instance.primaryFocus?.unfocus();
-          FocusScope.of(context).unfocus();
-        },
-        child: Stack(
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        // backgroundColor: Colors.white30,
+        resizeToAvoidBottomInset: false,
+        body: Stack(
           children: [
             Container(
-              child: Image(
+              child: const Image(
                 fit: BoxFit.fill,
                 image: AssetImage('assets/image/backscreen.png'),
               ),
@@ -75,7 +62,7 @@ class SignIn_state extends State<SignIn> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Container(
@@ -88,7 +75,7 @@ class SignIn_state extends State<SignIn> {
                   style: TextStyle(
                       fontFamily: 'Alexandria',
                       fontSize: 16,
-                      color: Colors.redAccent[100]),
+                      color: MyColor().pink),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -97,50 +84,34 @@ class SignIn_state extends State<SignIn> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Align(
-                          child: Text(
-                            'البريد الالكتروني ',
-                            style:
-                                TextStyle(fontSize: 12, color: MyColor().gray),
-                          ),
-                          alignment: Alignment.centerRight,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
                         FreeWidget().textformfield(
                             controller: _emailConntroller,
                             errorTitle: 'اعد ادخال البريد الإلكتروني ',
-                            hintTitle: 'Example@gmail.com'),
-                        SizedBox(
+                            hintTitle: 'Example@gmail.com',
+
+                          lableText: 'البريد الإلكتروني'
+                        ),
+                        const SizedBox(
                           height: 15,
                         ),
-                        Align(
-                            alignment: Alignment.topRight,
-                            child: Text(
-                              'الرقم السري',
-                              style: TextStyle(
-                                  fontSize: 12, color: MyColor().gray),
-                            )),
-                        SizedBox(
-                          height: 8,
-                        ),
                         FreeWidget().textformfield(
+                          lableText: 'الرقم السري',
                           controller: _passwordController,
                           errorTitle: 'أهد ادخال الرقم السري',
                           hintTitle: '******* ',
                           passwordMod: !_passEye,
                           type: TextInputType.number,
-                          child: IconButton(
-                              onPressed: () {
-                                setState(() => _passEye = !_passEye);
-                              },
-                              icon: _passEye
-                                  ? Icon(
-                                      Icons.remove_red_eye,
-                                      color: Colors.blue,
-                                    )
-                                  : Icon(Icons.remove_red_eye_outlined)),
+                          perfixicon: IconButton(
+                            onPressed: () {
+                              setState(() => _passEye = !_passEye);
+                            },
+                            icon: _passEye
+                                ? const Icon(
+                                    Icons.remove_red_eye,
+                                    color: Colors.blue,
+                                  )
+                                : Icon(Icons.remove_red_eye_outlined),
+                          ),
                         ),
                       ],
                     ),
@@ -150,13 +121,16 @@ class SignIn_state extends State<SignIn> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext) => StartPage()));
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext) => StartPage(),
+                        ),
+                      );
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          duration: Duration(seconds: 1),
-                          content: Text('invalid User name or Password')));
+                      FreeWidget().snackbar(
+                          context: context,
+                          content: 'اعد ادخال البيانات صحيحة',
+                          duration: 2);
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -173,7 +147,6 @@ class SignIn_state extends State<SignIn> {
                     ),
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                   child: Row(
@@ -182,6 +155,10 @@ class SignIn_state extends State<SignIn> {
                       TextButton(
                         onPressed: () {
                           print('open ForgetPassword Page');
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ForgetPassWord()));
                         },
                         child: Text(
                           'نسيت كلمه المرور ؟',
@@ -189,28 +166,28 @@ class SignIn_state extends State<SignIn> {
                         ),
                       ),
                       TextButton.icon(
-                          onPressed: () {
-                            setState(() => _rememberIcon = !_rememberIcon);
-                            print('remember me');
-                          },
-                          label: Text(
-                            'تذكرني؟',
-                            style:
-                                TextStyle(fontSize: 14, color: MyColor().gray),
-                          ),
-                          icon: _rememberIcon
-                              ? Icon(
-                                  Icons.check_box,
-                                  color: MyColor().pink,
-                                )
-                              : Icon(
-                                  Icons.check_box_outline_blank_sharp,
-                                  color: MyColor().gray_white,
-                                )),
+                        onPressed: () {
+                          setState(() => _rememberIcon = !_rememberIcon);
+                          print('remember me');
+                        },
+                        label: Text(
+                          'تذكرني؟',
+                          style: TextStyle(fontSize: 14, color: MyColor().gray),
+                        ),
+                        icon: _rememberIcon
+                            ? Icon(
+                                Icons.check_box,
+                                color: MyColor().pink,
+                              )
+                            : Icon(
+                                Icons.check_box_outline_blank_sharp,
+                                color: MyColor().gray_white,
+                              ),
+                      ),
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                   width: 350,
                   child: Divider(
@@ -221,32 +198,62 @@ class SignIn_state extends State<SignIn> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CircleAvatar(
-                        child: Image(
-                          image: AssetImage('assets/image/faceicon.png'),
+                      GestureDetector(
+                        onTap: () => FreeWidget().snackbar(
+                            context: context,
+                            content: 'Sign in with Face Account',
+                            duration: 2),
+                        child: CircleAvatar(
+                          child: Image(
+                            image: AssetImage('assets/image/faceicon.png'),
+                          ),
                         ),
                       ),
                       SizedBox(
                         width: 30,
                       ),
-                      CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 25,
-                        child: Image(
-                          image: AssetImage('assets/image/gmail.png'),
+                      GestureDetector(
+                        onTap: () => FreeWidget().snackbar(
+                            context: context,
+                            content: 'Sign in with Gmail Account',
+                            duration: 2),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: 25,
+                          child: Image(
+                            image: AssetImage('assets/image/gmail.png'),
+                          ),
                         ),
                       )
                     ],
                   ),
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    'لا تملك حساب ؟ سجل الان',
-                    style: TextStyle(fontSize: 14, color: Colors.black),
+                GestureDetector(
+                  onTap: () {
+                    print('Open Log In Screen');
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LogIn()));
+                  },
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'لا تملك حساب ؟ ',
+                      style: TextStyle(
+                          color: MyColor().gray,
+                          fontSize: 14,
+                          fontFamily: 'Alexandria'),
+                      children: [
+                        TextSpan(
+                          children: [],
+                          text: 'سجل الأن',
+                          style: TextStyle(color: MyColor().pink, fontSize: 14),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                SizedBox(height: 20,)
+                const SizedBox(
+                  height: 20,
+                )
               ],
             ),
           ],
