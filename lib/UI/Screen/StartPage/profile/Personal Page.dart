@@ -1,5 +1,5 @@
 //import 'package:autism_app/UI/Screen/Sign_In_Screens/forget_password/1.RestoreWay.dart';
-import 'package:autism_app/UI/Screen/profile/ProfileSetting.dart';
+//import 'package:autism_app/UI/Screen/profile/ProfileSetting.dart';
 import 'package:flutter/material.dart';
 
 class PresonalPage extends StatefulWidget {
@@ -51,7 +51,7 @@ class PersonalPage_s extends State<PresonalPage> with TickerProviderStateMixin {
                   //crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     IconButton(onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileSetting()));
+                      //Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileSetting()));
                     }, icon: Icon(
                       Icons.pending_actions,
                       color: Colors.white,

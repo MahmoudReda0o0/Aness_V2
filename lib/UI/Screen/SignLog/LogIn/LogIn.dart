@@ -19,7 +19,7 @@
 // }
 
 import 'package:autism_app/UI/Screen/SignLog/LogIn/moreDetail.dart';
-import 'package:autism_app/UI/Screen/StartPage.dart';
+import 'package:autism_app/UI/Screen/StartPage/StartPage.dart';
 import 'package:autism_app/UI/Widgets/FreeWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

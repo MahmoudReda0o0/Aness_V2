@@ -1,4 +1,4 @@
-import 'package:autism_app/UI/Screen/profile/Personal%20Page.dart';
+//import 'package:autism_app/UI/Screen/profile/Personal%20Page.dart';
 import 'package:flutter/material.dart';
 
 
@@ -74,7 +74,7 @@ class MainPage_s extends State<MainPage>with TickerProviderStateMixin{
               controller: _tabcontroller,
               children: [
                 Text('instruction'),
-                PresonalPage(),
+                //PresonalPage(),
                 Text('instruction')
               ],
             ),

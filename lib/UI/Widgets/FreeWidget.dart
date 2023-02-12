@@ -58,10 +58,10 @@ class FreeWidget {
   Widget textformfield(
       {required TextEditingController controller,
       required String errorTitle,
+      required String hintTitle,
+      required String lableText,
       TextInputType? type,
       bool passwordMod = false,
-      required String hintTitle,
-        required String lableText,
       Widget? perfixicon}) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -129,9 +129,8 @@ class FreeWidget {
       required BuildContext context,
       required String buttonText,
       required double buttonWidth,
-      double? buttonHeight,
       var page,
-      bool? navigatBool,
+      double? buttonHeight,
       String? snackContent}) {
     return ElevatedButton(
       onPressed: () {
@@ -162,6 +161,40 @@ class FreeWidget {
       ),
     );
   }
+
+  Widget elevatedTextField(
+      { required BuildContext context,
+        required TextEditingController controller,
+        required String buttonText,
+        required double buttonWidth,
+        var page,
+        double? buttonHeight,
+        String? snackContent}) {
+    return ElevatedButton(
+      onPressed: () {
+        if (controller.text.length>5) {
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>page));
+        } else {
+          FreeWidget()
+              .snackbar(context: context, content: snackContent!, duration: 2);
+        }
+      },
+      style: ElevatedButton.styleFrom(
+          shadowColor: MyColor().gray, primary: MyColor().pink),
+      child: SizedBox(
+        height: buttonHeight,
+        width: buttonWidth * 0.85,
+        child: Align(
+          alignment: Alignment.center,
+          child: Text(
+            buttonText,
+            style: TextStyle(fontSize: 14, color: MyColor().gray),
+          ),
+        ),
+      ),
+    );
+  }
+
 }
 
 // class sharedPreferences{

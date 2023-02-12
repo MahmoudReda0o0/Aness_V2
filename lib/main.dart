@@ -2,11 +2,12 @@ import 'package:autism_app/UI/Screen/MainPage.dart';
 //import 'package:autism_app/UI/Screen/Sign_In_Screens/CreateNewAccount.dart';
 //import 'package:autism_app/UI/Screen/Sign_In_Screens/ForgetPassword.dart';
 import 'package:autism_app/UI/Screen/SplashScreen.dart';
+import 'package:autism_app/UI/Screen/StartPage/StartPage.dart';
 import 'package:flutter/material.dart';
 //import 'UI/Screen/Sign_In_Screens/Sign_In.dart';
 //import 'UI/Screen/Sign_In_Screens/forget_password/1.RestoreWay.dart';
-import 'UI/Screen/profile/Personal Page.dart';
-import 'UI/Screen/profile/ProfileSetting.dart';
+// import 'UI/Screen/profile/Personal Page.dart';
+//import 'UI/Screen/profile/ProfileSetting.dart';
 
 
 void main() {
