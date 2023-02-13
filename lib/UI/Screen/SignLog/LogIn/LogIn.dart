@@ -53,6 +53,7 @@ class LogIn_s extends State<LogIn> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
             Container(

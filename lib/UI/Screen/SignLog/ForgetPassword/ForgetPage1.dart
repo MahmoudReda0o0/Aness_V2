@@ -2,10 +2,8 @@ import 'package:autism_app/UI/helper/constant.dart';
 import 'package:flutter/material.dart';
 
 
-class ForgetPage1 extends StatelessWidget{
-  Widget build(BuildContext context){
-    return Center();
-  }
+class ForgetPage1 {
+
   body(
       {required BuildContext context,
         required TextEditingController controller,

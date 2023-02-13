@@ -6,10 +6,11 @@ class FreeWidget {
   ScaffoldFeatureController<SnackBar, SnackBarClosedReason> snackbar(
       {required BuildContext context,
       required String content,
-      required int duration}) {
+      required int duration,
+      double? fontSize}) {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(content),
+        content: Text(content,style: TextStyle(fontSize: fontSize),),
         duration: Duration(seconds: duration),
       ),
     );
@@ -192,6 +193,29 @@ class FreeWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget startPageBackImage({required double height,required double width}){
+    return Column(
+      children: [
+        Container(
+          child: Image(
+            height: height*0.15,
+            width: width,
+            fit: BoxFit.fill,
+            image: AssetImage('assets/image/backscreen1.png'),
+          ),
+        ),
+        Container(
+          height: height*0.8,
+          width: width,
+          child: Image(
+            fit: BoxFit.fitWidth,
+            image: AssetImage('assets/image/backscreen.png'),
+          ),
+        )
+      ],
     );
   }
 

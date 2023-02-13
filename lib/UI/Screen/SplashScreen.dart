@@ -9,7 +9,7 @@ class SplashScreen {
     return AnimatedSplashScreen(
       backgroundColor: Color(0xFFf79999),
       curve: Curves.bounceOut,
-      duration:5000,
+      duration:2000,
       splashIconSize: 250,
       splash: Container(
         height: 230,

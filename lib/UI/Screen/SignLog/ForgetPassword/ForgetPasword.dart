@@ -18,8 +18,12 @@ class ForgetPassWord_s extends State<ForgetPassWord>
     TextEditingController _mailController = TextEditingController();
     int tabpage = 0;
 
-    TabController _tabController =
-        TabController(length: 3, vsync: this);
+    TabController _tabController = TabController(
+      length: 3,
+      vsync: this,
+      initialIndex: 0,
+      animationDuration: Duration(seconds: 1),
+    );
     return GestureDetector(
       onTap: () {
         setState(() => FocusScope.of(context).unfocus());
@@ -43,15 +47,17 @@ class ForgetPassWord_s extends State<ForgetPassWord>
               //crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Align(
-                    alignment: Alignment.topRight,
-                    child: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(
-                          Icons.arrow_forward,
-                          color: MyColor().gray,
-                        ))),
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.arrow_forward,
+                      color: MyColor().gray,
+                    ),
+                  ),
+                ),
                 Center(
                   child: Container(
                     height: 30,
@@ -92,12 +98,15 @@ class ForgetPassWord_s extends State<ForgetPassWord>
                   height: MediaQuery.of(context).size.height * 0.75,
                   //color: Colors.redAccent,
                   child: TabBarView(
-                    physics: NeverScrollableScrollPhysics(),
+                    //physics: NeverScrollableScrollPhysics(),
                     controller: _tabController,
                     children: [
-                      ForgetPage1().body(context: context,controller: _mailController, width: _width),
+                      ForgetPage1().body(
+                          context: context,
+                          controller: _mailController,
+                          width: _width),
                       ForgetPage2().body(context: context, width: _width),
-                      ForgetPage3().body(context: context,width: _width),
+                      ForgetPage3().body(context: context, width: _width),
                     ],
                   ),
                 ),

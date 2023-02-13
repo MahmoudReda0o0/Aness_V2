@@ -1,3 +1,6 @@
+import 'package:autism_app/UI/Screen/StartPage/StartPage.dart';
+import 'package:autism_app/UI/Widgets/FreeWidget.dart';
+import 'package:autism_app/UI/helper/constant.dart';
 import 'package:flutter/material.dart';
 
 class ProfileSetting extends StatefulWidget {
@@ -5,212 +8,191 @@ class ProfileSetting extends StatefulWidget {
 }
 
 class ProfileSetting_s extends State<ProfileSetting> {
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passController = TextEditingController();
+  bool _passEye = false;
+  final _formKey = GlobalKey<FormState>();
   Widget build(BuildContext context) {
-    double _height = MediaQuery.of(context).size.height;
-    double _width = MediaQuery.of(context).size.width;
-    final _formKey = GlobalKey<FormState>();
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            //padding:EdgeInsets.all(10),
-            height: _height,
-            width: double.infinity,
-            child: FittedBox(
-                fit: BoxFit.fill,
-                child: Image(image: AssetImage('assets/image/screen.png'))),
-          ),
-          Column(
-            children: [
-              Container(
-                height: _height * 0.2,
-                width: double.infinity,
-              ),
-              Container(
-                height: _height * 0.8,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15),
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Stack(
+          children: [
+            Column(
+              children: [
+                Container(
+                  child: Image(
+                    height: MyPageSize.height(context) * 0.25,
+                    width: MyPageSize.width(context),
+                    fit: BoxFit.fill,
+                    image: AssetImage('assets/image/backscreen1.png'),
+                  ),
                 ),
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              SizedBox(height: 30),
-              ListTile(
-                title: Align(
+                Container(
+                  height: MyPageSize.height(context) * 0.75,
+                  width: MyPageSize.width(context),
+                  child: Image(
+                    fit: BoxFit.fitWidth,
+                    image: AssetImage('assets/image/backscreen.png'),
+                  ),
+                )
+              ],
+            ),
+
+            Column(
+              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(height: MyPageSize.height(context) * 0.03),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.chevron_right,
+                      color: Colors.black,
+                      size: 40,
+                    ),
+                  ),
+                ),
+                Align(
                     alignment: Alignment.center,
                     child: Text(
                       'تعديل البيانات الشخصية',
                       style: TextStyle(
-                          fontSize: 30,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.italic,
-                          color: Colors.blueGrey[800]),
+                          color: MyColor().gray),
                     )),
-                trailing: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(
-                    Icons.chevron_right,
-                    color: Colors.black,
-                    size: 20,
-                  ),
+                SizedBox(
+                  height: MyPageSize.height(context) * 0.05,
                 ),
-              ),
-              Positioned(
-                top: 100,
-                right: 100,
-                child: CircleAvatar(
+                CircleAvatar(
                   radius: 60,
                   backgroundImage: AssetImage('assets/image/profile.jpg'),
                 ),
-              ),
-              Center(
-                child: Text(
-                  ' أحمد محمد ',
-                  style: TextStyle(fontSize: 30, color: Colors.blueGrey[800]),
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          'أسم الطفل',
-                          style: TextStyle(fontSize: 25),
-                        ),
-                      ),
-                      TextFormField(
-                        keyboardType: TextInputType.text,
-                        validator: (value) {
-                          if (value == null)
-                            return 'من فضلك ادخل الاسم';
-                          else
-                            return null;
-                        },
-                        decoration: InputDecoration(
-                            // hintTextDirection:InputDecoration,
-                            hintText: 'أدخل اسم الطفل',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            )),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          'البريد الالكتروني',
-                          style: TextStyle(fontSize: 25),
-                        ),
-                      ),
-                      TextFormField(
-                        keyboardType: TextInputType.text,
-                        validator: (value) {
-                          if (value == null)
-                            return 'اعد ادخال البريد الالكتروني';
-                          else
-                            return null;
-                        },
-                        decoration: InputDecoration(
-                            // hintTextDirection:InputDecoration,
-                            hintText: 'ادخل البريد الالكتروني',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            )),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          'الرقم السري',
-                          style: TextStyle(fontSize: 25),
-                        ),
-                      ),
-                      TextFormField(
-                        keyboardType: TextInputType.text,
-                        validator: (value) {
-                          if (value == null)
-                            return 'تاكد من الرقم السري';
-                          else
-                            return null;
-                        },
-                        decoration: InputDecoration(
-                            // hintTextDirection:InputDecoration,
-                            hintText: 'ادخل الرقم السري',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            )),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ],
+                Center(
+                  child: Text(
+                    ' أحمد محمد ',
+                    style: TextStyle(fontSize: 15, color: MyColor().gray),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              ButtonBar(
-                alignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.pinkAccent[200]
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        FreeWidget().textformfield(
+                            controller: _nameController,
+                            errorTitle: '',
+                            hintTitle: "أدخل اسم الطفل",
+                            lableText: 'أسم الطفل'),
+                        SizedBox(height: 15),
+                        FreeWidget().textformfield(
+                            controller: _emailController,
+                            errorTitle: '',
+                            hintTitle: 'Example@gmail.com',
+                            lableText: "البريد الإلكتروني"),
+                        SizedBox(height: 15),
+                        FreeWidget().textformfield(
+                            passwordMod: !_passEye,
+                            perfixicon: IconButton(
+                                onPressed: () {
+                                  setState(() => _passEye = !_passEye);
+                                },
+                                icon: _passEye
+                                    ? Icon(
+                                        Icons.remove_red_eye,
+                                        color: Colors.blue,
+                                      )
+                                    : Icon(Icons.remove_red_eye_outlined)),
+                            controller: _passController,
+                            errorTitle: '',
+                            hintTitle: '********',
+                            lableText: "الرقم السري")
+                      ],
                     ),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                ButtonBar(
+                  alignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: MyColor().pink),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          print('not true');
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('ادخل البيانات الصحيحه للطفل 🤓💀'),
-                            ),
-                          );
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>StartPage()));
+
+
                         } else
-                          print('true');
+                          FreeWidget().snackbar(context: context, content: "ادخل البيانات الصحيحه للطفل", duration: 1);
                       },
                       child: Container(
                         height: 45,
-                          width: 150,
-                          //color: Colors.pinkAccent[200],
-                          child: Text('تحديث البيانات',style: TextStyle(fontSize: 23, color: Colors.blue[900]),
-                            textAlign: TextAlign.center,))),
-                  SizedBox(),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Container(
-                      height: 45,
-                      width: 150,
-                      child: Text(
-                        'ألغاء',
-                        style: TextStyle(fontSize: 23, color: Colors.blue[900]),
-                        textAlign: TextAlign.center,
+                        width: 130,
+                        //color: Colors.pinkAccent[200],
+                        child: Align(alignment: Alignment.center,
+                          child: Text(
+                            'تحديث البيانات',
+                            style: TextStyle(fontSize: 14, color: MyColor().gray),
+                          ),
+                        ),
                       ),
                     ),
-                  )
-                ],
-              )
-            ],
-          ),
-          Positioned(
-            top: 150,
-              right: 180,
-              child: CircleAvatar(
-                  backgroundColor: Colors.white70,
-                  child: Icon(Icons.edit,size: 30,color: Colors.blueGrey[800],),),),
-        ],
+                    SizedBox(),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.white.withOpacity(0.9),
+                        shadowColor: Colors.black,
+
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        height: 45,
+                        width: 130,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'ألغاء',
+                            style: TextStyle(fontSize: 14, color: MyColor().gray),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+            // Positioned(
+            //   top: 150,
+            //   right: 180,
+            //   child: CircleAvatar(
+            //     backgroundColor: Colors.white70,
+            //     child: Icon(
+            //       Icons.edit,
+            //       size: 30,
+            //       color: Colors.blueGrey[800],
+            //     ),
+            //   ),
+            // ),
+          ],
+        ),
       ),
     );
   }
