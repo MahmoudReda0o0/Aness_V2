@@ -9,24 +9,29 @@ class ForgetPassWord extends StatefulWidget {
   State<StatefulWidget> createState() => ForgetPassWord_s();
 }
 
+TabController? tabController ;
+//TextEditingController _mailController = TextEditingController();
+int selectPage=0;
+
 class ForgetPassWord_s extends State<ForgetPassWord>
     with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final FormKey = GlobalKey<FormState>();
     double _height = MediaQuery.of(context).size.height;
     double _width = MediaQuery.of(context).size.width;
-    TextEditingController _mailController = TextEditingController();
-    int tabpage = 0;
 
-    TabController _tabController = TabController(
+    int tabpage = 0;
+    tabController =  TabController(
       length: 3,
-      vsync: this,
-      initialIndex: 0,
+       vsync: this,
+       initialIndex: selectPage,
       animationDuration: Duration(seconds: 1),
     );
+
+
     return GestureDetector(
       onTap: () {
-        setState(() => FocusScope.of(context).unfocus());
+       // setState(() => FocusScope.of(context).unfocus());
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -35,11 +40,8 @@ class ForgetPassWord_s extends State<ForgetPassWord>
             Container(
               height: double.infinity,
               width: double.infinity,
-              child: const FittedBox(
-                fit: BoxFit.fill,
-                child: Image(
-                  image: AssetImage('assets/image/backscreen.png'),
-                ),
+              child: Image(
+                image: AssetImage('assets/image/backscreen.png'),
               ),
             ),
             Column(
@@ -63,10 +65,11 @@ class ForgetPassWord_s extends State<ForgetPassWord>
                     height: 30,
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: TabBar(
+
                       isScrollable: false,
                       indicatorColor: Colors.white60,
                       mouseCursor: MouseCursor.uncontrolled,
-                      controller: _tabController,
+                      controller: tabController,
                       labelColor: MyColor().pink,
                       unselectedLabelColor: MyColor().pink_white,
                       splashBorderRadius: BorderRadius.circular(20),
@@ -79,7 +82,7 @@ class ForgetPassWord_s extends State<ForgetPassWord>
                         ),
                         Tab(
                           icon: Icon(
-                            Icons.remove_rounded,
+                            Icons.remove,
                             size: 40,
                           ),
                         ),
@@ -98,14 +101,13 @@ class ForgetPassWord_s extends State<ForgetPassWord>
                   height: MediaQuery.of(context).size.height * 0.75,
                   //color: Colors.redAccent,
                   child: TabBarView(
+
+
                     //physics: NeverScrollableScrollPhysics(),
-                    controller: _tabController,
+                    controller: tabController,
                     children: [
-                      ForgetPage1().body(
-                          context: context,
-                          controller: _mailController,
-                          width: _width),
-                      ForgetPage2().body(context: context, width: _width),
+                      ForgetPage1(),
+                      ForgetPage2(),
                       ForgetPage3().body(context: context, width: _width),
                     ],
                   ),
