@@ -11,10 +11,10 @@ class MyColor{
   var gray_wihte2=Color(0xffE0E5EC);
 }
 
+
+
 class MyPageSize{
   MyPageSize(BuildContext context);
-
-
   static double height(BuildContext context){
     return MediaQuery.of(context).size.height;
   }

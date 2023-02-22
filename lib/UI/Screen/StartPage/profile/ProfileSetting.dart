@@ -1,4 +1,5 @@
 import 'package:autism_app/UI/Screen/StartPage/StartPage.dart';
+import 'package:autism_app/UI/Screen/StartPage/profile/widget/ShowBottomSheet.dart';
 import 'package:autism_app/UI/Widgets/FreeWidget.dart';
 import 'package:autism_app/UI/helper/constant.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +8,15 @@ class ProfileSetting extends StatefulWidget {
   State<StatefulWidget> createState() => ProfileSetting_s();
 }
 
+
+
 class ProfileSetting_s extends State<ProfileSetting> {
+
   TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passController = TextEditingController();
   bool _passEye = false;
+  bool _selectImageColor=false;
   final _formKey = GlobalKey<FormState>();
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -74,9 +79,16 @@ class ProfileSetting_s extends State<ProfileSetting> {
                 SizedBox(
                   height: MyPageSize.height(context) * 0.05,
                 ),
-                CircleAvatar(
-                  radius: 60,
-                  backgroundImage: AssetImage('assets/image/profile.jpg'),
+                GestureDetector(
+                  onTap: (){
+                    showModalBottomSheet(context: context, builder: (BuildContext context){
+                      return ShowBottomSheet();
+                    });
+                   },
+                  child: CircleAvatar(
+                    radius: 60,
+                    backgroundImage: AssetImage('assets/image/profileimage.png'),
+                  ),
                 ),
                 SizedBox(
                   height: 10,
@@ -196,4 +208,44 @@ class ProfileSetting_s extends State<ProfileSetting> {
       ),
     );
   }
+  // Widget ShowBottomSheet(){
+  //   List<Color>colorList=List.generate(20, (index) {
+  //     return Colors.white;
+  //   });
+  //   return SizedBox(
+  //       height: MyPageSize.height(context)*0.9,
+  //       width: MyPageSize.width(context),
+  //       child: GridView.count(
+  //         crossAxisSpacing: 10,
+  //         mainAxisSpacing: 10,
+  //         scrollDirection: Axis.vertical,
+  //         childAspectRatio: (10/10),
+  //         crossAxisCount: 3,
+  //         children: List.generate(20, (index) {
+  //           return GestureDetector(
+  //             onTap: ()async{
+  //               setState(() {
+  //                 colorList[index]=Colors.red;
+  //               });
+  //               await Future.delayed(Duration(seconds: 1)).then((value) => Navigator.pop(context));
+  //               print('awiat done');
+  //               print('${_selectImageColor}');
+  //               setState(() {
+  //                 _selectImageColor=false;
+  //               });
+  //             },
+  //             child: Container(
+  //               height: 100,
+  //               width: 100,
+  //               color: colorList[index],
+  //
+  //               child: Image(
+  //                 image: AssetImage('assets/image/selectimage.png'),
+  //               ),
+  //             ),
+  //           );
+  //         }),
+  //       )
+  //   );
+  // }
 }

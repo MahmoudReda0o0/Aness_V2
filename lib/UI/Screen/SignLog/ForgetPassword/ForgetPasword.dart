@@ -1,26 +1,21 @@
-import 'package:autism_app/UI/Screen/SignLog/ForgetPassword/ForgetPage2.dart';
+//import 'package:autism_app/UI/Screen/SignLog/ForgetPassword/ForgetPage2.dart';
 import 'package:autism_app/UI/Screen/SignLog/ForgetPassword/ForgetPage3.dart';
 import 'package:autism_app/UI/helper/constant.dart';
 import 'package:flutter/material.dart';
 
 import 'ForgetPage1.dart';
+import 'ForgetPage2.dart';
 
 class ForgetPassWord extends StatefulWidget {
   State<StatefulWidget> createState() => ForgetPassWord_s();
 }
 
 TabController? tabController ;
-//TextEditingController _mailController = TextEditingController();
 int selectPage=0;
 
 class ForgetPassWord_s extends State<ForgetPassWord>
     with TickerProviderStateMixin {
   Widget build(BuildContext context) {
-    final FormKey = GlobalKey<FormState>();
-    double _height = MediaQuery.of(context).size.height;
-    double _width = MediaQuery.of(context).size.width;
-
-    int tabpage = 0;
     tabController =  TabController(
       length: 3,
        vsync: this,
@@ -31,7 +26,7 @@ class ForgetPassWord_s extends State<ForgetPassWord>
 
     return GestureDetector(
       onTap: () {
-       // setState(() => FocusScope.of(context).unfocus());
+       setState(() => FocusScope.of(context).unfocus());
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -65,7 +60,6 @@ class ForgetPassWord_s extends State<ForgetPassWord>
                     height: 30,
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: TabBar(
-
                       isScrollable: false,
                       indicatorColor: Colors.white60,
                       mouseCursor: MouseCursor.uncontrolled,
@@ -103,12 +97,12 @@ class ForgetPassWord_s extends State<ForgetPassWord>
                   child: TabBarView(
 
 
-                    //physics: NeverScrollableScrollPhysics(),
+                    physics: NeverScrollableScrollPhysics(),
                     controller: tabController,
                     children: [
                       ForgetPage1(),
                       ForgetPage2(),
-                      ForgetPage3().body(context: context, width: _width),
+                      ForgetPage3(),
                     ],
                   ),
                 ),

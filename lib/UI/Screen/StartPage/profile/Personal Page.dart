@@ -102,7 +102,7 @@ class PersonalPage_s extends State<PresonalPage> {
                             CircleAvatar(
                               radius: 30,
                               backgroundImage:
-                                  AssetImage('assets/image/profile.jpg'),
+                                  AssetImage('assets/image/profileimage.png'),
                             ),
                           ],
                         ),

@@ -1,10 +1,10 @@
 import 'dart:math';
 
+import 'package:autism_app/UI/Widgets/FreeWidget.dart';
 import 'package:autism_app/UI/helper/constant.dart';
 import 'package:flutter/material.dart';
 
 import 'ForgetPasword.dart';
-
 
 class ForgetPage2 extends StatefulWidget {
   const ForgetPage2({Key? key}) : super(key: key);
@@ -14,10 +14,21 @@ class ForgetPage2 extends StatefulWidget {
 }
 
 class _ForgetPage2State extends State<ForgetPage2> {
-  Random num1 = Random();
-  Random num2 = Random();
-  Random num3 = Random();
-  Random num4 = Random();
+
+  // @override
+  // void initState(){
+  //   super.initState();
+  //   setState(() {
+  //     selectPage=0;
+  //   });
+  // }
+
+
+  Random num = Random();
+  int num0 = 0;
+  int num1 = 0;
+  int num2 = 0;
+  int num3 = 0;
 
   List<TextEditingController> numcon = List.generate(4, (index) {
     return TextEditingController();
@@ -84,14 +95,19 @@ class _ForgetPage2State extends State<ForgetPage2> {
         ),
         ElevatedButton(
           onPressed: () {
-            print(num1);
-            print(numcon[0].text);
-            print(numcon[2].text);
-            setState((){
-              selectPage=2;
-              tabController?.animateTo(2);
+            if (num0.toString() == numcon[0].text &&
+                num1.toString() == numcon[1].text &&
+                num2.toString() == numcon[2].text &&
+                num3.toString() == numcon[3].text){
+              setState(() {
+                selectPage=2;
+                tabController?.animateTo(2);
+              });
+            }
 
-            });
+            else {
+              FreeWidget().snackbar(context: context, content:'pls Try Agian', duration: 2);
+            }
           },
           style: ElevatedButton.styleFrom(
               shadowColor: Colors.black, primary: MyColor().pink),
@@ -125,11 +141,17 @@ class _ForgetPage2State extends State<ForgetPage2> {
         ),
         GestureDetector(
           onTap: () {
+            setState(() {
+              num0 = num.nextInt(9);
+              num1 = num.nextInt(9);
+              num2 = num.nextInt(9);
+              num3 = num.nextInt(9);
+            });
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(
-                    'New OTP Code is  ${num1.nextInt(9)} ${num2.nextInt(9)} ${num3.nextInt(9)} ${num4.nextInt(9)}'),
-                duration: Duration(seconds: 3),
+                content:
+                    Text('New OTP Code is  ${num0} ${num1} ${num2} ${num3}'),
+                duration: Duration(seconds: 2),
               ),
             );
           },
@@ -155,11 +177,12 @@ class _ForgetPage2State extends State<ForgetPage2> {
       ],
     );
   }
+
   Widget _textFieldOTP(
       {required bool first,
-        required bool last,
-        required BuildContext context,
-        required TextEditingController controller}) {
+      required bool last,
+      required BuildContext context,
+      required TextEditingController controller}) {
     return Container(
       height: 85,
       child: AspectRatio(
@@ -197,7 +220,6 @@ class _ForgetPage2State extends State<ForgetPage2> {
     );
   }
 }
-
 
 // class ForgetPage2 {
 //   Random num1 = Random();

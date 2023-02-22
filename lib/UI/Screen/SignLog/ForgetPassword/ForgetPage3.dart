@@ -1,15 +1,24 @@
+import 'package:autism_app/UI/Screen/SignLog/ForgetPassword/ForgetPasword.dart';
 import 'package:autism_app/UI/Screen/SignLog/SignIn/signIn.dart';
 import 'package:autism_app/UI/Widgets/FreeWidget.dart';
 import 'package:autism_app/UI/helper/constant.dart';
 import 'package:flutter/material.dart';
 
-final _formKey = GlobalKey<FormState>();
+class ForgetPage3 extends StatefulWidget {
+  const ForgetPage3({Key? key}) : super(key: key);
 
-class ForgetPage3 {
+  @override
+  State<ForgetPage3> createState() => _ForgetPage3State();
+}
+
+class _ForgetPage3State extends State<ForgetPage3> {
   TextEditingController _passController = TextEditingController();
   TextEditingController _rePassController = TextEditingController();
-
-  body({required BuildContext context, required double width}) {
+  bool _newPassBool = false;
+  bool _reNewPassBool = false;
+  final _formKey = GlobalKey<FormState>();
+  @override
+  Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -44,11 +53,24 @@ class ForgetPage3 {
                 controller: _passController,
                 errorTitle: 'أعد ادخال الرقم السري',
                 hintTitle: '* * * * * *',
-                type: TextInputType.number,
-                passwordMod: false,
-                perfixicon: Icon(
-                  Icons.remove_red_eye,
-                  color: Colors.blue,
+                type: TextInputType.text,
+                passwordMod: !_newPassBool,
+                perfixicon: IconButton(
+                  onPressed: () {
+                    setState(
+                      () {
+                        _newPassBool = !_newPassBool;
+                      },
+                    );
+                  },
+                  icon: _newPassBool
+                      ? Icon(
+                          Icons.remove_red_eye,
+                          color: Colors.blue,
+                        )
+                      : Icon(
+                          Icons.remove_red_eye_outlined,
+                        ),
                 ),
               ),
               SizedBox(
@@ -59,11 +81,24 @@ class ForgetPage3 {
                 controller: _rePassController,
                 errorTitle: 'أعد ادخال الرقم السري',
                 hintTitle: '* * * * * *',
-                type: TextInputType.number,
-                passwordMod: false,
-                perfixicon: Icon(
-                  Icons.remove_red_eye,
-                  color: Colors.blue,
+                type: TextInputType.text,
+                passwordMod: !_reNewPassBool,
+                perfixicon: IconButton(
+                  onPressed: () {
+                    setState(
+                          () {
+                        _reNewPassBool = !_reNewPassBool;
+                      },
+                    );
+                  },
+                  icon: _reNewPassBool
+                      ? Icon(
+                    Icons.remove_red_eye,
+                    color: Colors.blue,
+                  )
+                      : Icon(
+                    Icons.remove_red_eye_outlined,
+                  ),
                 ),
               )
             ],
@@ -72,22 +107,35 @@ class ForgetPage3 {
         ElevatedButton(
           style: ElevatedButton.styleFrom(primary: MyColor().pink),
           onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text("تم تغير الرقم السري بنجاح "),
-                duration: Duration(seconds: 3),
-              ),
-            );
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (_) => SignIn(),
-              ),
-            );
+            if (_formKey.currentState!.validate()) {
+              setState(() {
+                selectPage = 0;
+                tabController?.animateTo(0);
+              });
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => SignIn(),
+                ),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("تم تغير الرقم السري بنجاح "),
+                  duration: Duration(seconds: 3),
+                ),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("أعد ادخال كلمه السر "),
+                  duration: Duration(seconds: 3),
+                ),
+              );
+            }
           },
           child: Container(
             height: 48,
-            width: width * 0.9,
+            width: MyPageSize.width(context) * 0.9,
             child: Align(
               alignment: Alignment.center,
               child: Text(
@@ -101,3 +149,12 @@ class ForgetPage3 {
     );
   }
 }
+
+// class ForgetPage3 {
+//   TextEditingController _passController = TextEditingController();
+//   TextEditingController _rePassController = TextEditingController();
+//
+//   body({required BuildContext context, required double width}) {
+//     return
+//   }
+// }
