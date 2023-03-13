@@ -1,8 +1,10 @@
+import 'package:autism_app/Statemanagement/Provider/ProviderLevelFormOne.dart';
 import 'package:autism_app/UI/Screen/StartPage/Instruction/AppInformation.dart';
 import 'package:autism_app/UI/Screen/StartPage/LevelMap/LevelMap.dart';
 import 'package:autism_app/UI/Screen/StartPage/profile/Personal%20Page.dart';
 import 'package:autism_app/UI/helper/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class StartPage extends StatefulWidget {
   State<StatefulWidget> createState() => StartPage_s();
@@ -10,7 +12,7 @@ class StartPage extends StatefulWidget {
 
 class StartPage_s extends State<StartPage>with TickerProviderStateMixin {
   Widget build(BuildContext context) {
-    TabController _tabController=TabController(length: 3, vsync: this,initialIndex: 1);
+     Provider.of<ProviderLevelFormOne>(context).levelmapTabController=TabController(length: 3, vsync: this,initialIndex: Provider.of<ProviderLevelFormOne>(context).levelmapInitIndex);
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -20,7 +22,7 @@ class StartPage_s extends State<StartPage>with TickerProviderStateMixin {
               width: MyPageSize.width(context),
               child: TabBarView(
                 physics: NeverScrollableScrollPhysics(),
-                controller: _tabController,
+                controller: Provider.of<ProviderLevelFormOne>(context).levelmapTabController,
                 children: [
                   LevelMap(),
                   PresonalPage(),
@@ -74,7 +76,7 @@ class StartPage_s extends State<StartPage>with TickerProviderStateMixin {
                     indicatorColor: MyColor().pink,
                     unselectedLabelColor: MyColor().gray_white,
 
-                    controller: _tabController,
+                    controller: Provider.of<ProviderLevelFormOne>(context).levelmapTabController,
                     tabs: [
                       tabBarIcon(icons: Icons.house),
                       tabBarIcon(icons: Icons.person),

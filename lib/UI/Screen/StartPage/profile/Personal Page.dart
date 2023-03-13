@@ -134,7 +134,7 @@ class PersonalPage_s extends State<PresonalPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'المستوي 3',
+                                'المستوى 3',
                                 style: TextStyle(
                                     color: MyColor().gray_white, fontSize: 16),
                               ),
@@ -250,7 +250,7 @@ class PersonalPage_s extends State<PresonalPage> {
                                   size: 40,
                                   leading: '%70',
                                   colorLeading: MyColor().gray,
-                                  title: 'الدقه',
+                                  title: 'الدقة',
                                   icon: Icons.add_circle,
                                   colorContainer: MyColor().pink_white),
                             ],
@@ -281,7 +281,7 @@ class PersonalPage_s extends State<PresonalPage> {
                           Align(
                             alignment: Alignment.topRight,
                             child: Text(
-                              'الاعدادات',
+                              'الإعدادات',
                               style: TextStyle(
                                 color: MyColor().gray,
                                 fontSize: 16,
@@ -303,7 +303,7 @@ class PersonalPage_s extends State<PresonalPage> {
                             child: container_setting(
                                 checkBool: _checkNoti,
                                 leading_check: true,
-                                title: 'الاشعارات',
+                                title: 'الإشعارات',
                                 icon: Icons.phonelink_ring),
                           ),
                           GestureDetector(

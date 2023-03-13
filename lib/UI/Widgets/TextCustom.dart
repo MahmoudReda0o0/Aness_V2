@@ -9,6 +9,7 @@ class TextCustom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       '${title}',
+      textAlign: TextAlign.center,
       style: TextStyle(
         color: color,
         fontSize: fontsize,

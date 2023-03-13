@@ -73,7 +73,7 @@ class LogIn_s extends State<LogIn> {
                   child: Image.asset('assets/image/signicon.png'),
                 ),
                 Text(
-                  'انشاء حساب جديد  ',
+                  'إنشاء حساب جديد  ',
                   style: TextStyle(fontSize: 16, color: MyColor().pink),
                 ),
                 Padding(
@@ -83,7 +83,7 @@ class LogIn_s extends State<LogIn> {
                     child: Column(
                       children: [
                         FreeWidget().textformfield(
-                          lableText: 'البريد الإلكتروني',
+                          lableText: 'البريد الإلكترونى',
                           controller: _emailController,
                           errorTitle: 'اعد ادخال البريد الإلكتروني',
                           hintTitle: 'Example@gmail.com',
@@ -92,7 +92,7 @@ class LogIn_s extends State<LogIn> {
                           height: 15,
                         ),
                         FreeWidget().textformfield(
-                          lableText: 'الرقم السري',
+                          lableText: 'الرقم السرى',
                           controller: _passController,
                           errorTitle: 'أعد ادخال الرقم السري',
                           hintTitle: '******* ',
@@ -136,7 +136,7 @@ class LogIn_s extends State<LogIn> {
                     child: Align(
                         alignment: Alignment.center,
                         child: Text(
-                          'انشاء حساب جديد ',
+                          'إنشاء حساب جديد ',
                           style: TextStyle(fontSize: 14, color: MyColor().gray),
                         )),
                   ),

@@ -125,7 +125,7 @@ class MoreDetail_s extends State<MoreDetail> {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    'ما هو اسم طفلك ',
+                    'ما هو إسم طفلك ',
                     style: TextStyle(fontSize: 20, color: MyColor().pink),
                   ),
                 ),
@@ -136,7 +136,7 @@ class MoreDetail_s extends State<MoreDetail> {
                       controller: _childNameController,
                       errorTitle: 'اعد ادخال اسم الطفل ',
                       hintTitle: 'محمود مصطفي',
-                      lableText: 'اسم الطفل ',
+                      lableText: 'إسم الطفل ',
                     )),
                 FreeWidget().elevatedTextField(
                     controller: _childNameController,

@@ -1,6 +1,11 @@
+import 'package:autism_app/Statemanagement/Provider/ProviderLevelFormOne.dart';
+import 'package:autism_app/UI/Screen/games/LevelForm/LevelFormOne.dart';
+import 'package:autism_app/UI/Screen/games/levelOne/SelectFruit.dart';
+import 'package:autism_app/UI/Screen/games/levelTwo/RecordFruitName.dart';
 import 'package:autism_app/UI/Widgets/FreeWidget.dart';
 import 'package:autism_app/UI/helper/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../games/levelOne/ColorGame.dart';
 import '../../games/levelOne/moving_Box.dart';
@@ -11,16 +16,28 @@ class LevelMap extends StatefulWidget {
 
 class LevelMap_s extends State<LevelMap> {
   double heartCounter = 5;
+  bool levelComplete = false;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      Provider.of<ProviderLevelFormOne>(context, listen: false).levelindex++;
+    });
+  }
+
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: Stack(
           children: [
-            FreeWidget().startPageBackImage(height: MyPageSize.height(context),width: MyPageSize.width(context)),
+            FreeWidget().startPageBackImage(
+                height: MyPageSize.height(context),
+                width: MyPageSize.width(context)),
             Column(
               children: [
                 Container(
-                  height: MyPageSize.height(context)*0.15,
+                  height: MyPageSize.height(context) * 0.15,
                   width: MyPageSize.width(context),
                   child: Center(
                     child: SizedBox(
@@ -29,29 +46,30 @@ class LevelMap_s extends State<LevelMap> {
                       //color: Colors.blue,
                       child: Row(
                         children: [
-                          TextButton.icon(
+                          Image(
+                              image: AssetImage(
+                                  'assets/image/games/levelmap/heart.png')),
+                          TextButton(
                             onPressed: () {
                               setState(() => heartCounter = 5);
+                              setState(() {
+                                Provider.of<ProviderLevelFormOne>(context,
+                                        listen: false)
+                                    .levelindex = 0;
+                              });
                             },
-                            icon: Icon(
-                              Icons.heart_broken,
-                              color: Colors.red,
-                            ),
-                            label: Text(
+                            child: Text(
                               heartCounter.toInt().toString(),
                               style: TextStyle(color: Colors.red, fontSize: 20),
                             ),
                           ),
-                          SizedBox(
-                            width: MyPageSize.width(context) * 0.02,
-                          ),
                           Text(
                             'المستوي 2',
                             style:
-                            TextStyle(fontSize: 15, color: MyColor().gray),
+                                TextStyle(fontSize: 15, color: MyColor().gray),
                           ),
                           SizedBox(
-                            width: MyPageSize.width(context) * 0.15,
+                            width: MyPageSize.width(context) * 0.1,
                           ),
                           RichText(
                             text: TextSpan(
@@ -79,7 +97,7 @@ class LevelMap_s extends State<LevelMap> {
                             width: 40,
                             child: Image(
                               image:
-                              AssetImage('assets/image/levelfaceicon.png'),
+                                  AssetImage('assets/image/levelfaceicon.png'),
                               fit: BoxFit.fill,
                             ),
                           )
@@ -88,18 +106,25 @@ class LevelMap_s extends State<LevelMap> {
                     ),
                   ),
                 ),
-                Container(
-                  height: MyPageSize.height(context)*0.8,
-                  width: MyPageSize.width(context),
-                  child: Image(
-                    image: AssetImage('assets/image/levelmap1.png'),
-                    fit: BoxFit.fitWidth,
-                  ),
-                )
+                // Container(
+                //   height: MyPageSize.height(context)*0.8,
+                //   width: MyPageSize.width(context),
+                //   child: Image(
+                //     image: AssetImage('assets/image/levelmap1.png'),
+                //     fit: BoxFit.fitWidth,
+                //   ),
+                // )
+                // Center(
+                //   child: Text(
+                //       '${Provider.of<ProviderLevelFormOne>(context).levelindex}'),
+                // )
               ],
             ),
-            levelPosition(page: MoveBox(), bottom: 152, right: 153),
-            levelPosition(page: ColorGame(), bottom: 260, left: 127),
+            levelPosition(levelindex: 5,page: LevelForm(), top: 152, right: 140),
+            levelPosition(levelindex: 4,page: LevelForm(), top: 260, left: 100),
+            levelPosition(levelindex: 3,page: LevelForm(), top: 350, right: 90),
+            levelPosition(levelindex: 2,page: LevelForm(), bottom: 270, left: 80),
+            levelPosition(levelindex: 1,page: LevelForm(), bottom: 130, left: 180),
 
             // Positioned(
             //   bottom: 150,
@@ -131,6 +156,7 @@ class LevelMap_s extends State<LevelMap> {
 
   Widget levelPosition(
       {required var page,
+      required int levelindex,
       double? top,
       double? bottom,
       double? right,
@@ -149,6 +175,13 @@ class LevelMap_s extends State<LevelMap> {
               Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => page),
               );
+
+              setState(() {
+                levelComplete = true;
+                // setState(() {
+                //   Provider.of<ProviderLevelFormOne>(context,listen: false).levelindex++;
+                // });
+              });
             } else
               FreeWidget().snackbar(
                   context: context,
@@ -159,9 +192,13 @@ class LevelMap_s extends State<LevelMap> {
         },
         child: CircleAvatar(
           backgroundColor: MyColor().gray_wihte2,
-          radius: 36,
+          radius: 40,
           child: Image(
-            image: AssetImage('assets/image/lock.png'),
+            image: levelindex < Provider.of<ProviderLevelFormOne>(context).levelindex
+                ? AssetImage('assets/image/games/levelmap/finish.png')
+                : levelindex == Provider.of<ProviderLevelFormOne>(context).levelindex
+                    ? AssetImage('assets/image/games/levelmap/start.png')
+                    : AssetImage('assets/image/games/levelmap/lock.png'),
           ),
         ),
       ),

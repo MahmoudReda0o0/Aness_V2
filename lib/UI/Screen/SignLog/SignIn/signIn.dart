@@ -86,7 +86,7 @@ class SignIn_state extends State<SignIn> {
                       children: [
                         FreeWidget().textformfield(
                             controller: _emailConntroller,
-                            errorTitle: 'اعد ادخال البريد الإلكتروني ',
+                            errorTitle: 'أعد ادخال البريد الإلكتروني ',
                             hintTitle: 'Example@gmail.com',
 
                           lableText: 'البريد الإلكتروني'
@@ -97,7 +97,7 @@ class SignIn_state extends State<SignIn> {
                         FreeWidget().textformfield(
                           lableText: 'الرقم السري',
                           controller: _passwordController,
-                          errorTitle: 'أهد ادخال الرقم السري',
+                          errorTitle: 'أهد ادخال الرقم السرى',
                           hintTitle: '******* ',
                           passwordMod: !_passEye,
                           type: TextInputType.number,
@@ -161,7 +161,7 @@ class SignIn_state extends State<SignIn> {
                                   builder: (context) => ForgetPassWord()));
                         },
                         child: Text(
-                          'نسيت كلمه المرور ؟',
+                          'نسيت كلمة المرور ؟',
                           style: TextStyle(fontSize: 14, color: MyColor().gray),
                         ),
                       ),
@@ -171,7 +171,7 @@ class SignIn_state extends State<SignIn> {
                           print('remember me');
                         },
                         label: Text(
-                          'تذكرني؟',
+                          'تذكرني',
                           style: TextStyle(fontSize: 14, color: MyColor().gray),
                         ),
                         icon: _rememberIcon
@@ -244,7 +244,7 @@ class SignIn_state extends State<SignIn> {
                       children: [
                         TextSpan(
                           children: [],
-                          text: 'سجل الأن',
+                          text: 'سجل الان',
                           style: TextStyle(color: MyColor().pink, fontSize: 14),
                         ),
                       ],
