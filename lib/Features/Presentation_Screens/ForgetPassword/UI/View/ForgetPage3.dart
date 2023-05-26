@@ -1,6 +1,7 @@
 
 
 import 'package:autism_app/Core/constant.dart';
+import 'package:autism_app/Features/Presentation_Screens/Login/UI/View/Login.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../Widgets/FreeWidget.dart';
@@ -118,7 +119,7 @@ class _ForgetPage3State extends State<ForgetPage3> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => SignIn(),
+                  builder: (_) => Login(),
                 ),
               );
               ScaffoldMessenger.of(context).showSnackBar(

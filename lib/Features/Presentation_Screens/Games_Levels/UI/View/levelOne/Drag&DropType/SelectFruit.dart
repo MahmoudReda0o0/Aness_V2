@@ -1,15 +1,16 @@
 import 'dart:math';
 
-import 'package:autism_app/Statemanagement/Provider/ProviderLevelFormOne.dart';
+
 
 import 'package:autism_app/Core/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../Widgets/TextCustom.dart';
-import '../../Widget/LosePage.dart';
-import '../../Widget/WinPage.dart';
-import '../../Widget/gamelist.dart';
+import '../../../../../../../Statemanagement/Provider/AppProvider/ProviderLevelFormOne.dart';
+import '../../../../../../Widgets/TextCustom.dart';
+import '../../../Widget/LosePage.dart';
+import '../../../Widget/WinPage.dart';
+import '../../../Widget/gamelist.dart';
 
 
 class SelectFruit extends StatefulWidget {
@@ -64,7 +65,7 @@ class _SelectFruitState extends State<SelectFruit> {
                 SizedBox(
                   height: 20,
                 ),
-                Consumer<ProviderLevelFormOne>(
+                Consumer<ProviderLevelForm>(
                   builder: (context, ProviderLevel, child) {
                     return DragTarget<String>(
                       onAccept: (data) async {
@@ -74,7 +75,7 @@ class _SelectFruitState extends State<SelectFruit> {
                           });
                           await Future.delayed(Duration(seconds: 5));
                           setState(() {
-                            ProviderLevel.starOne=true;
+
                             ProviderLevel.LevelProgress=1;
                             ProviderLevel.initTabPage=1;
                             ProviderLevel.tabcontroller?.animateTo(1);

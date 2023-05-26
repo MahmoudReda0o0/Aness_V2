@@ -1,7 +1,9 @@
-import 'package:autism_app/Features/MainPage.dart';
+import 'package:autism_app/zz_TestCode/MainPage.dart';
 
 import 'package:autism_app/Core/constant.dart';
+import 'package:autism_app/Statemanagement/Provider/ApiProvider/Auth/ProviderAccountRegister.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../Widgets/FreeWidget.dart';
 import '../../../App_Start_Page/UI/View/StartPage.dart';
@@ -13,6 +15,7 @@ class MoreDetail extends StatefulWidget {
 class MoreDetail_s extends State<MoreDetail> {
   final _formKey = GlobalKey<FormState>();
   final _childNameController = TextEditingController();
+  final _familyNameController =TextEditingController();
   bool _typeBoy = false;
   bool _typeGirl = false;
   bool _typeImage = false;
@@ -33,7 +36,9 @@ class MoreDetail_s extends State<MoreDetail> {
             ),
             Column(
               children: [
-                SizedBox(height: 30,),
+                SizedBox(
+                  height: 30,
+                ),
                 ButtonBar(
                   alignment: MainAxisAlignment.spaceEvenly,
                   buttonHeight: 55,
@@ -107,10 +112,12 @@ class MoreDetail_s extends State<MoreDetail> {
                     // elevatedbutton(width: _width,typeText: "بنت",baseType: _girlType,anotherType: _boyType),
                   ],
                 ),
-                SizedBox(height: 30,),
+                SizedBox(
+                  height: 30,
+                ),
                 Container(
-                  height: _height*0.35,
-                  width: _width*0.65,
+                  height: _height * 0.35,
+                  width: _width * 0.65,
                   //color: Colors.black,
                   child: _beforTypeImage
                       ? Image(image: AssetImage('assets/image/ghost.png'))
@@ -123,7 +130,9 @@ class MoreDetail_s extends State<MoreDetail> {
                               image: AssetImage('assets/image/girltype.png'),
                               fit: FittedBox().fit),
                 ),
-                SizedBox(height: 30,),
+                SizedBox(
+                  height: 10,
+                ),
                 Align(
                   alignment: Alignment.center,
                   child: Text(
@@ -131,23 +140,72 @@ class MoreDetail_s extends State<MoreDetail> {
                     style: TextStyle(fontSize: 20, color: MyColor().pink),
                   ),
                 ),
-                SizedBox(height: 30,),
+                SizedBox(
+                  height: 10,
+                ),
+
                 Padding(
                     padding: EdgeInsets.all(8),
                     child: FreeWidget().textformfield(
                       controller: _childNameController,
                       errorTitle: 'اعد ادخال اسم الطفل ',
-                      hintTitle: 'محمود مصطفي',
-                      lableText: 'إسم الطفل ',
+                      hintTitle: 'إسم الطفل',
+                      lableText: '',
                     )),
-                FreeWidget().elevatedTextField(
-                    controller: _childNameController,
-                    context: context,
-                    buttonText: "التالي ",
-                    page: StartPage(),
-                    snackContent: 'أدخل اسم الطفل ',
-                    buttonWidth: _width),
-                SizedBox(height: 30,),
+                Padding(
+                    padding: EdgeInsets.all(8),
+                    child: FreeWidget().textformfield(
+                      controller: _familyNameController,
+                      errorTitle: 'اعد ادخال اسم العائلة ',
+                      hintTitle: 'إسم العائلة',
+                      lableText: ''
+                    )),
+                SizedBox(
+                  height: 30,
+                ),
+                Consumer<ProviderAccountRegister>(builder: (BuildContext context , _ , child){
+                  return ElevatedButton(
+                    onPressed: () {
+                      if(_childNameController.text.length>3||_childNameController.text.length>3){
+                        String username = _childNameController.text+_familyNameController.text;
+                        _.GetUserName(
+                            fristname:_childNameController.text,
+                            lastname: _familyNameController.text,
+                            username: username);
+                        _.PostData(function: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>StartPage()));
+                        });
+
+                      }
+                      else {
+                        FreeWidget().snackbar(context: context, content: "من فضلك أعد ادخال البيانات صحيحة", duration: 3);
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                        shadowColor: MyColor().gray, primary: MyColor().pink),
+                    child: SizedBox(
+                      height: 50,
+                      width: _width * 0.85,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "التالي ",
+                          style: TextStyle(fontSize: 14, color: MyColor().gray),
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+                // FreeWidget().elevatedTextField(
+                //     controller: _childNameController,
+                //     context: context,
+                //     buttonText: "التالي ",
+                //     page: StartPage(),
+                //     snackContent: 'أدخل اسم الطفل ',
+                //     buttonWidth: _width),
+                SizedBox(
+                  height: 30,
+                ),
               ],
             )
           ],

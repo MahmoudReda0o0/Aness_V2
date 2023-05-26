@@ -1,4 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:autism_app/Features/Presentation_Screens/Login/UI/View/Login.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Sign_in/UI/View/signIn.dart';
@@ -23,7 +24,7 @@ class SplashScreen extends StatelessWidget {
           image: AssetImage('assets/image/splash.png'),
         ),
       ),
-      nextScreen: SignIn(),
+      nextScreen: Login(),
     );
   }
 }

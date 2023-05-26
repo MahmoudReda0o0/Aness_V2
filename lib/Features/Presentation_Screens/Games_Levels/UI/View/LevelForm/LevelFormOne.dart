@@ -1,8 +1,13 @@
-import 'package:autism_app/Statemanagement/Provider/ProviderLevelFormOne.dart';
+import 'package:autism_app/Features/Presentation_Screens/Games_Levels/UI/Widget/LevelStarCustom.dart';
 import 'package:autism_app/Core/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../levelOne/SelectFruit.dart';
+import '../../../../../../Statemanagement/Provider/AppProvider/ProviderLevelFormOne.dart';
+import '../levelOne/Drag&DropType/1DragOneItem.dart';
+import '../levelOne/Drag&DropType/2DragOneItem.dart';
+import '../levelOne/Drag&DropType/3DragOneItem.dart';
+import '../levelOne/Drag&DropType/4DragFourItem.dart';
+import '../levelOne/Drag&DropType/SelectFruit.dart';
 import '../levelThree/TalkToAnees.dart';
 import '../levelTwo/RecordFruitName.dart';
 
@@ -20,21 +25,22 @@ class _LevelFormState extends State<LevelForm> with TickerProviderStateMixin {
   // vesnc:this,
   // )
   @override
-  void initState(){
+  void initState() {
     super.initState();
     setState(() {
-      Provider.of<ProviderLevelFormOne>(context,listen: false).initTabPage=2;
+      Provider.of<ProviderLevelForm>(context, listen: false).initTabPage = 9;
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    Provider.of<ProviderLevelFormOne>(context).tabcontroller = TabController(
-      length: 3,
+    Provider.of<ProviderLevelForm>(context).tabcontroller = TabController(
+      length: 10,
       vsync: this,
-      initialIndex: Provider.of<ProviderLevelFormOne>(context).initTabPage,
+      initialIndex: Provider.of<ProviderLevelForm>(context).initTabPage,
     );
     return Scaffold(
-      body: Consumer<ProviderLevelFormOne>(
+      body: Consumer<ProviderLevelForm>(
         builder: (context, ProviderLevel, child) {
           return Stack(
             children: [
@@ -54,43 +60,32 @@ class _LevelFormState extends State<LevelForm> with TickerProviderStateMixin {
                   child: Column(
                     children: [
                       Container(
-                        height: MyPageSize.height(context) * 0.09,
+                        height: MyPageSize.height(context) * 0.07,
                         width: MyPageSize.width(context) * 0.8,
-                        //color: Colors.orange,
-                        child: TabBarView(
-                          controller: ProviderLevel.tabcontroller,
-                          children: [
-                            LevelStar(starsize: 3,starcolor: false),
-                            LevelStar(starsize: 2,starcolor: false),
-                            LevelStar(starsize: 1,starcolor: false),
-                          ],
-                        ),
-                        // child: Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     LevelStar(
-                        //         levelProgress: 0,
-                        //         starbool: ProviderLevel.starThree),
-                        //     LevelStar(
-                        //         levelProgress: 1,
-                        //         starbool: ProviderLevel.starTwo),
-                        //     LevelStar(
-                        //         levelProgress: 2,
-                        //         starbool: ProviderLevel.starOne),
-                        //   ],
-                        // ),
+                        child: Row(children: [
+                          LevelStarCustom(),
+                          Text('${ProviderLevel.initTabPage}'),
+                        ],)
                       ),
                       Container(
-                        height: MyPageSize.height(context) * 0.86,
+                        height: MyPageSize.height(context) * 0.89,
                         width: MyPageSize.width(context),
                         //color: Colors.blue,
                         child: TabBarView(
                           controller: ProviderLevel.tabcontroller,
                           children: [
-
                             TalkToAnees(),
                             RecordFruitName(),
-                            SelectFruit(),
+                            DragFourItem(),
+                            DragFourItem(),
+                            DragThreeItem(),
+                            DragThreeItem(),
+                            DragTwoItem(),
+                            DragTwoItem(),
+                            DragOneItem(),
+                            DragOneItem(),
+
+
                             // LevelOne(),
                             // LevelTwo(),
                             // LevelThree(),
@@ -108,28 +103,28 @@ class _LevelFormState extends State<LevelForm> with TickerProviderStateMixin {
     );
   }
 
-
   Widget LevelStar({
     required int starsize,
-    required bool starcolor,
+    //required bool starcolor,
   }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Icon(
           Icons.star,
-          size: starsize==3?70:40,
+          size: starsize == 3 ? 70 : 40,
           color: MyColor().gray,
         ),
         Icon(
           Icons.star,
-          size: starsize==2?70:40,
-          color: starsize==3?Colors.yellow:MyColor().gray,
+          size: starsize == 2 ? 70 : 40,
+          color: starsize == 3 ? Colors.yellow : MyColor().gray,
         ),
         Icon(
           Icons.star,
-          size: starsize==1?70:40,
-          color: starsize==2||starsize==3?Colors.yellow:MyColor().gray,
+          size: starsize == 1 ? 70 : 40,
+          color:
+              starsize == 2 || starsize == 3 ? Colors.yellow : MyColor().gray,
         ),
       ],
     );

@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:autism_app/Statemanagement/Provider/ProviderLevelFormOne.dart';
+
 import 'package:autism_app/Core/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import 'package:speech_to_text/speech_to_text.dart';
 
+import '../../../../../../Statemanagement/Provider/AppProvider/ProviderLevelFormOne.dart';
 import '../../../../../Widgets/TextCustom.dart';
 import '../../Widget/WinPage.dart';
 import '../../Widget/gamelist.dart';
@@ -72,7 +73,7 @@ class _RecordFruitNameState extends State<RecordFruitName> {
                 ),
               ),
               SizedBoxCustom(),
-              Consumer<ProviderLevelFormOne>(
+              Consumer<ProviderLevelForm>(
                 builder: (context, ProviderLevel, child) {
                   return ElevatedButton(
                     onPressed: () async {
@@ -98,7 +99,6 @@ class _RecordFruitNameState extends State<RecordFruitName> {
                       });
                       await Future.delayed(Duration(seconds: 5));
                       setState(() {
-                        ProviderLevel.starTwo = true;
                         ProviderLevel.LevelProgress = 0;
                         ProviderLevel.initTabPage = 0;
                         ProviderLevel.tabcontroller?.animateTo(0);

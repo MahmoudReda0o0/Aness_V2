@@ -2,8 +2,7 @@
 import 'package:autism_app/Core/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../../../Statemanagement/Provider/ProviderLevelFormOne.dart';
+import '../../../../../../Statemanagement/Provider/AppProvider/ProviderLevelFormOne.dart';
 import '../../../../../Widgets/TextCustom.dart';
 import '../../../../App_Start_Page/UI/View/StartPage.dart';
 import '../../Widget/WinPage.dart';
@@ -103,7 +102,7 @@ class _ChatPageState extends State<ChatPage> {
                   });
                   await Future.delayed(Duration(seconds: 5));
                   setState(() {
-                    Provider.of<ProviderLevelFormOne>(context,listen: false).levelmapInitIndex=0;
+                    Provider.of<ProviderLevelForm>(context,listen: false).levelmapInitIndex=0;
                   });
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => StartPage()));

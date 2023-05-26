@@ -10,7 +10,10 @@ class FreeWidget {
       double? fontSize}) {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(content,style: TextStyle(fontSize: fontSize),),
+        content: Text(
+          content,
+          style: TextStyle(fontSize: fontSize),
+        ),
         duration: Duration(seconds: duration),
       ),
     );
@@ -164,17 +167,18 @@ class FreeWidget {
   }
 
   Widget elevatedTextField(
-      { required BuildContext context,
-        required TextEditingController controller,
-        required String buttonText,
-        required double buttonWidth,
-        var page,
-        double? buttonHeight,
-        String? snackContent}) {
+      {required BuildContext context,
+      required TextEditingController controller,
+      required String buttonText,
+      required double buttonWidth,
+      var page,
+      double? buttonHeight,
+      String? snackContent}) {
     return ElevatedButton(
       onPressed: () {
-        if (controller.text.length>5) {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>page));
+        if (controller.text.length > 5) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => page));
         } else {
           FreeWidget()
               .snackbar(context: context, content: snackContent!, duration: 2);
@@ -196,19 +200,22 @@ class FreeWidget {
     );
   }
 
-  Widget startPageBackImage({required double height,required double width}){
+  Widget startPageBackImage({
+    required double height,
+    required double width,
+  }) {
     return Column(
       children: [
         Container(
           child: Image(
-            height: height*0.15,
+            height: height * 0.15,
             width: width,
             fit: BoxFit.fill,
             image: AssetImage('assets/image/backscreen1.png'),
           ),
         ),
         Container(
-          height: height*0.8,
+          height: height * 0.8,
           width: width,
           child: Image(
             fit: BoxFit.fitWidth,
@@ -218,7 +225,6 @@ class FreeWidget {
       ],
     );
   }
-
 }
 
 // class sharedPreferences{

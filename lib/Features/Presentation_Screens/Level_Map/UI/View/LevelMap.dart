@@ -1,9 +1,10 @@
-import 'package:autism_app/Statemanagement/Provider/ProviderLevelFormOne.dart';
+
 
 import 'package:autism_app/Core/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../Statemanagement/Provider/AppProvider/ProviderLevelFormOne.dart';
 import '../../../../Widgets/FreeWidget.dart';
 import '../../../Games_Levels/UI/View/LevelForm/LevelFormOne.dart';
 
@@ -21,7 +22,7 @@ class LevelMap_s extends State<LevelMap> {
   void initState() {
     super.initState();
     setState(() {
-      Provider.of<ProviderLevelFormOne>(context, listen: false).levelindex++;
+      Provider.of<ProviderLevelForm>(context, listen: false).levelindex++;
     });
   }
 
@@ -52,7 +53,7 @@ class LevelMap_s extends State<LevelMap> {
                             onPressed: () {
                               setState(() => heartCounter = 5);
                               setState(() {
-                                Provider.of<ProviderLevelFormOne>(context,
+                                Provider.of<ProviderLevelForm>(context,
                                         listen: false)
                                     .levelindex = 0;
                               });
@@ -193,9 +194,9 @@ class LevelMap_s extends State<LevelMap> {
           backgroundColor: MyColor().gray_wihte2,
           radius: 40,
           child: Image(
-            image: levelindex < Provider.of<ProviderLevelFormOne>(context).levelindex
+            image: levelindex < Provider.of<ProviderLevelForm>(context).levelindex
                 ? AssetImage('assets/image/games/levelmap/finish.png')
-                : levelindex == Provider.of<ProviderLevelFormOne>(context).levelindex
+                : levelindex == Provider.of<ProviderLevelForm>(context).levelindex
                     ? AssetImage('assets/image/games/levelmap/start.png')
                     : AssetImage('assets/image/games/levelmap/lock.png'),
           ),
