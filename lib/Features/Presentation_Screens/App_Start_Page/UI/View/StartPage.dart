@@ -1,6 +1,7 @@
 
 
 import 'package:autism_app/Core/constant.dart';
+import 'package:autism_app/Statemanagement/Provider/AppProvider/ProviderStartPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +16,7 @@ class StartPage extends StatefulWidget {
 
 class StartPage_s extends State<StartPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
-    Provider.of<ProviderLevelForm>(context).levelmapTabController =
+    Provider.of<ProviderStartPage>(context).startPageTapController =
         TabController(
       length: 3,
       vsync: this,
@@ -32,8 +33,8 @@ class StartPage_s extends State<StartPage> with TickerProviderStateMixin {
               width: MyPageSize.width(context),
               child: TabBarView(
                 physics: NeverScrollableScrollPhysics(),
-                controller: Provider.of<ProviderLevelForm>(context)
-                    .levelmapTabController,
+                controller: Provider.of<ProviderStartPage>(context)
+                    .startPageTapController,
                 children: [
                   LevelMap(),
                   PresonalPage(),
@@ -85,8 +86,8 @@ class StartPage_s extends State<StartPage> with TickerProviderStateMixin {
                     labelColor: Colors.white,
                     indicatorColor: MyColor().pink,
                     unselectedLabelColor: MyColor().gray_white,
-                    controller: Provider.of<ProviderLevelForm>(context)
-                        .levelmapTabController,
+                    controller: Provider.of<ProviderStartPage>(context)
+                        .startPageTapController,
                     tabs: [
                       tabBarIcon(icons: Icons.house),
                       tabBarIcon(icons: Icons.person),

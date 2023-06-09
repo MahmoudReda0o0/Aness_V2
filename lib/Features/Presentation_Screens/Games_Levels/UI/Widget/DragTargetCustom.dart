@@ -1,4 +1,5 @@
 import 'package:autism_app/Core/constant.dart';
+import 'package:autism_app/Statemanagement/Provider/ApiProvider/AnessData/ReceptiveGame.dart';
 import 'package:autism_app/Statemanagement/Provider/AppProvider/ProviderData.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -6,8 +7,10 @@ import 'package:provider/provider.dart';
 import '../../../../../Statemanagement/Provider/AppProvider/ProviderLevelFormOne.dart';
 
 class DragTargetCustom extends StatefulWidget {
-  const DragTargetCustom({Key? key}) : super(key: key);
+  DragTargetCustom({required this.image,required this.dataAnswer});
 
+  String? image;
+  String? dataAnswer;
   @override
   State<DragTargetCustom> createState() => _DragTargetCustomState();
 }
@@ -16,25 +19,28 @@ class _DragTargetCustomState extends State<DragTargetCustom> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ProviderLevelForm>(
-      builder: (BuildContext context ,form, child){
+      builder: (BuildContext context ,_, child){
         return Container(
           child: DragTarget<String>(
             onAccept: (data) async {
-              if(data == form.DargItem) {
+              if(data == widget.dataAnswer) {
+                print('ansower Image :${widget.image}');
                 print('Win');
                 // _.DragBool=true;
-                form.Winpageselect(winpage: true);
-                print('winpage${form.winpage}');
+                _.Winpageselect(winpage: true);
+                print('winpage${_.winpage}');
                await  Future.delayed(Duration(seconds: 5));
-                form.Winpageselect(winpage: false);
-                form.tabcontroller?.animateTo(form.initTabPage--);
-                print('winbool: ${form.winpage}');
+                print('ansower Image :${widget.image}');
+                _.Winpageselect(winpage: false);
+                _.levelFormTabController?.animateTo(_.initTabPage--);
+                print('winbool: ${_.winpage}');
               }
               else{
-                form.Losepageselect(losepage: true);
+                print('ansower Image :${widget.image}');
+                _.Losepageselect(losepage: true);
                 await Future.delayed(Duration(seconds: 5));
-                form.Losepageselect(losepage: false);
-                print('losebool: ${form.losepage}');
+                _.Losepageselect(losepage: false);
+                print('losebool: ${_.losepage}');
               };
               print(data);
             },
@@ -48,9 +54,7 @@ class _DragTargetCustomState extends State<DragTargetCustom> {
               width: 140,
               child: Opacity(
                 opacity: 0.4,
-                child: Image(
-                  image: AssetImage('assets/image/games/Apple.png'),
-                ),
+                child: Image.network('${widget.image}')
               ),
             ),
           ),

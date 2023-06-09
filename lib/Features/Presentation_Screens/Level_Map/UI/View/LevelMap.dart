@@ -1,14 +1,12 @@
-
-
 import 'package:autism_app/Core/constant.dart';
+import 'package:autism_app/Features/Presentation_Screens/Games_Levels/UI/Widget/gamelist.dart';
+import 'package:autism_app/Statemanagement/Provider/ApiProvider/AnessData/ExpressiveGame.dart';
+import 'package:autism_app/Statemanagement/Provider/ApiProvider/AnessData/ReceptiveGame.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../../Statemanagement/Provider/AppProvider/ProviderLevelFormOne.dart';
 import '../../../../Widgets/FreeWidget.dart';
 import '../../../Games_Levels/UI/View/LevelForm/LevelFormOne.dart';
-
-
 
 class LevelMap extends StatefulWidget {
   State<StatefulWidget> createState() => LevelMap_s();
@@ -29,134 +27,211 @@ class LevelMap_s extends State<LevelMap> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Stack(
-          children: [
-            FreeWidget().startPageBackImage(
-                height: MyPageSize.height(context),
-                width: MyPageSize.width(context)),
-            Column(
+        body: Consumer2<ProviderReceptiveGame,ProviderExpressiveGame>(
+          builder: (context,_,__,child) {
+            return Stack(
               children: [
-                Container(
-                  height: MyPageSize.height(context) * 0.15,
-                  width: MyPageSize.width(context),
-                  child: Center(
-                    child: SizedBox(
-                      height: MyPageSize.height(context) * 0.12,
-                      width: MyPageSize.width(context) * 0.96,
-                      //color: Colors.blue,
-                      child: Row(
-                        children: [
-                          Image(
-                              image: AssetImage(
-                                  'assets/image/games/levelmap/heart.png')),
-                          TextButton(
-                            onPressed: () {
-                              setState(() => heartCounter = 5);
-                              setState(() {
-                                Provider.of<ProviderLevelForm>(context,
-                                        listen: false)
-                                    .levelindex = 0;
-                              });
-                            },
-                            child: Text(
-                              heartCounter.toInt().toString(),
-                              style: TextStyle(color: Colors.red, fontSize: 20),
-                            ),
-                          ),
-                          Text(
-                            'المستوي 2',
-                            style:
-                                TextStyle(fontSize: 15, color: MyColor().gray),
-                          ),
-                          SizedBox(
-                            width: MyPageSize.width(context) * 0.1,
-                          ),
-                          RichText(
-                            text: TextSpan(
-                              style: TextStyle(
-                                  fontFamily: 'Alexandria', fontSize: 17),
-                              children: [
-                                TextSpan(
-                                  text: 'مرحبا بك',
-                                  style: TextStyle(
-                                    color: MyColor().gray,
-                                    //fontSize: 15,
-                                  ),
+                FreeWidget().startPageBackImage(
+                    height: MyPageSize.height(context),
+                    width: MyPageSize.width(context)),
+                Column(
+                  children: [
+                    Container(
+                      height: MyPageSize.height(context) * 0.15,
+                      width: MyPageSize.width(context),
+                      child: Center(
+                        child: SizedBox(
+                          height: MyPageSize.height(context) * 0.12,
+                          width: MyPageSize.width(context) * 0.96,
+                          //color: Colors.blue,
+                          child: Row(
+                            children: [
+                              Image(
+                                  image: AssetImage(
+                                      'assets/image/games/levelmap/heart.png')),
+                              TextButton(
+                                onPressed: () {
+                                  setState(() => heartCounter = 5);
+                                  setState(() {
+                                    Provider.of<ProviderLevelForm>(context,
+                                            listen: false)
+                                        .levelindex = 1;
+                                  });
+                                },
+                                child: Text(
+                                  heartCounter.toInt().toString(),
+                                  style: TextStyle(color: Colors.red, fontSize: 20),
                                 ),
-                                TextSpan(
-                                    text: ' أحمد ',
-                                    style: TextStyle(
-                                      color: MyColor().pink,
-                                      //fontSize: 15
-                                    )),
-                              ],
-                            ),
+                              ),
+                              Text(
+                                'المستوي 2',
+                                style:
+                                    TextStyle(fontSize: 15, color: MyColor().gray),
+                              ),
+                              SizedBox(
+                                width: MyPageSize.width(context) * 0.1,
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  style: TextStyle(
+                                      fontFamily: 'Alexandria', fontSize: 17),
+                                  children: [
+                                    TextSpan(
+                                      text: 'مرحبا بك',
+                                      style: TextStyle(
+                                        color: MyColor().gray,
+                                        //fontSize: 15,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                        text: ' أحمد ',
+                                        style: TextStyle(
+                                          color: MyColor().pink,
+                                          //fontSize: 15
+                                        )),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 40,
+                                width: 40,
+                                child: Image(
+                                  image:
+                                      AssetImage('assets/image/levelfaceicon.png'),
+                                  fit: BoxFit.fill,
+                                ),
+                              )
+                            ],
                           ),
-                          SizedBox(
-                            height: 40,
-                            width: 40,
-                            child: Image(
-                              image:
-                                  AssetImage('assets/image/levelfaceicon.png'),
-                              fit: BoxFit.fill,
-                            ),
-                          )
-                        ],
+                        ),
                       ),
                     ),
-                  ),
+                    // Container(
+                    //   height: MyPageSize.height(context)*0.8,
+                    //   width: MyPageSize.width(context),
+                    //   child: Image(
+                    //     image: AssetImage('assets/image/levelmap1.png'),
+                    //     fit: BoxFit.fitWidth,
+                    //   ),
+                    // )
+                    // Center(
+                    //   child: Text(
+                    //       '${Provider.of<ProviderLevelFormOne>(context).levelindex}'),
+                    // )
+                  ],
                 ),
-                // Container(
-                //   height: MyPageSize.height(context)*0.8,
-                //   width: MyPageSize.width(context),
-                //   child: Image(
-                //     image: AssetImage('assets/image/levelmap1.png'),
-                //     fit: BoxFit.fitWidth,
-                //   ),
-                // )
-                // Center(
-                //   child: Text(
-                //       '${Provider.of<ProviderLevelFormOne>(context).levelindex}'),
-                // )
-              ],
-            ),
-            levelPosition(levelindex: 5,page: LevelForm(), top: 152, right: 140),
-            levelPosition(levelindex: 4,page: LevelForm(), top: 260, left: 100),
-            levelPosition(levelindex: 3,page: LevelForm(), top: 350, right: 90),
-            levelPosition(levelindex: 2,page: LevelForm(), bottom: 270, left: 80),
-            levelPosition(levelindex: 1,page: LevelForm(), bottom: 130, left: 180),
+                levelPosition(
+                    levelindex: 5,
+                    fun: () async {
+                     await _.GetReceptiveData(level: 5);
+                     await __.GetExpressiveData(level: 5);
+                     Navigator.push(
+                       context,
+                       MaterialPageRoute(
+                         builder: (context) => LevelForm(GamesList:GameList.LevelFive,initTapconPage: 8,tabConLength: 9),
+                       ),
+                     );
 
-            // Positioned(
-            //   bottom: 150,
-            //   right: 150,
-            //   child: CircleAvatar(
-            //     backgroundColor: MyColor().gray_wihte2,
-            //     radius: 40,
-            //     child: Image(
-            //       image: AssetImage('assets/image/lock.png'),
-            //     ),
-            //   ),
-            // ),
-            // Positioned(
-            //   bottom: 250,
-            //   left: 120,
-            //   child: CircleAvatar(
-            //     backgroundColor: MyColor().gray_wihte2,
-            //     radius: 40,
-            //     child: Image(
-            //       image: AssetImage('assets/image/lock.png'),
-            //     ),
-            //   ),
-            // ),
-          ],
+                    },
+                    top: 152,
+                    right: 140,
+                ),
+                levelPosition(
+                    levelindex: 4,
+                    fun: () async {
+                      await _.GetReceptiveData(level: 4).then((value) => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LevelForm(GamesList:GameList.LevelFour,initTapconPage: 8,tabConLength: 9),
+                        ),
+                      ));
+
+                    },
+                    top: 260,
+                    left: 100,
+                ),
+                levelPosition(
+                    levelindex: 3,
+                    fun: () async {
+                      await _.GetReceptiveData(level: 3).then((value) => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LevelForm(GamesList:GameList.LevelThree,initTapconPage: 8,tabConLength: 9),
+                        ),
+                      ));
+
+                    },
+                    top: 350,
+                    right: 90,
+                ),
+                levelPosition(
+                    levelindex: 2,
+                    fun: () async {
+                      await _.GetReceptiveData(level: 2).then((value) => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LevelForm(GamesList:GameList.LevelOne,initTapconPage: 8,tabConLength: 9),
+                        ),
+                      ));
+
+                    },
+                    bottom: 270,
+                    left: 80,
+                ),
+                levelPosition(
+                    levelindex: 1,
+                    fun: () async {
+                      await _.GetReceptiveData(level: 1).then((value) => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LevelForm(GamesList:GameList.LevelOne,initTapconPage: 7,tabConLength: 8),
+                        ),
+                      ));
+
+                    },
+                    bottom: 130,
+                    left: 180,
+                ),
+
+                // levelPosition(levelindex: 4,page: LevelForm(), top: 260, left: 100),
+                // levelPosition(levelindex: 3,page: LevelForm(), top: 350, right: 90),
+                // levelPosition(levelindex: 2,page: LevelForm(), bottom: 270, left: 80),
+                // levelPosition(levelindex: 1,page: LevelForm(), bottom: 130, left: 180),
+
+                // Positioned(
+                //   bottom: 150,
+                //   right: 150,
+                //   child: CircleAvatar(
+                //     backgroundColor: MyColor().gray_wihte2,
+                //     radius: 40,
+                //     child: Image(
+                //       image: AssetImage('assets/image/lock.png'),
+                //     ),
+                //   ),
+                // ),
+                // Positioned(
+                //   bottom: 250,
+                //   left: 120,
+                //   child: CircleAvatar(
+                //     backgroundColor: MyColor().gray_wihte2,
+                //     radius: 40,
+                //     child: Image(
+                //       image: AssetImage('assets/image/lock.png'),
+                //     ),
+                //   ),
+                // ),
+              ],
+            );
+          }
         ),
       ),
     );
   }
 
   Widget levelPosition(
-      {required var page,
+      {//required var page,
       required int levelindex,
+      required Function fun,
       double? top,
       double? bottom,
       double? right,
@@ -172,10 +247,10 @@ class LevelMap_s extends State<LevelMap> {
             print('open level one');
             if (heartCounter > 0) {
               heartCounter--;
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => page),
-              );
-
+              fun();
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(builder: (context) => page),
+              // );
               setState(() {
                 levelComplete = true;
                 // setState(() {
@@ -194,11 +269,13 @@ class LevelMap_s extends State<LevelMap> {
           backgroundColor: MyColor().gray_wihte2,
           radius: 40,
           child: Image(
-            image: levelindex < Provider.of<ProviderLevelForm>(context).levelindex
-                ? AssetImage('assets/image/games/levelmap/finish.png')
-                : levelindex == Provider.of<ProviderLevelForm>(context).levelindex
-                    ? AssetImage('assets/image/games/levelmap/start.png')
-                    : AssetImage('assets/image/games/levelmap/lock.png'),
+            image:
+                levelindex < Provider.of<ProviderLevelForm>(context).levelindex
+                    ? AssetImage('assets/image/games/levelmap/finish.png')
+                    : levelindex ==
+                            Provider.of<ProviderLevelForm>(context).levelindex
+                        ? AssetImage('assets/image/games/levelmap/start.png')
+                        : AssetImage('assets/image/games/levelmap/lock.png'),
           ),
         ),
       ),

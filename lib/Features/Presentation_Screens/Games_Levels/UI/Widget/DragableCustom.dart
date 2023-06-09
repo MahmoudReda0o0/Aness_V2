@@ -12,42 +12,40 @@ class DragableCustom extends StatelessWidget {
   String? image;
   @override
   Widget build(BuildContext context) {
-    return Consumer<ProviderData>(builder: (BuildContext context,_,child){
-      return Draggable<String>(
-        data: data,
+    return Draggable<String>(
+      data: data,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-
             color: MyColor().pink.withOpacity(0.1),
           ),
           height: 140,
           width: 140,
-          child: Image(
-            image: AssetImage('assets/image/games/${image}.png'),
-          ),
+          child: Image.network('${image}'),
         ),
-        feedback: Container(
+      ),
+      feedback: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             //color: MyColor().pink.withOpacity(0.1),
           ),
           height: 140,
           width: 140,
-          child: Image(
-            image: AssetImage('assets/image/games/${image}.png'),
-          ),
+          child: Image.network('${image}')
         ),
-        childWhenDragging: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: MyColor().pink.withOpacity(0.1),
-          ),
-
-          height: 140,
-          width: 140,
+      ),
+      childWhenDragging: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: MyColor().pink.withOpacity(0.1),
         ),
-      );
-    });
+        height: 140,
+        width: 140,
+      ),
+    );
   }
 }

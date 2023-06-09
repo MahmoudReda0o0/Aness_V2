@@ -99,9 +99,9 @@ class _RecordFruitNameState extends State<RecordFruitName> {
                       });
                       await Future.delayed(Duration(seconds: 5));
                       setState(() {
-                        ProviderLevel.LevelProgress = 0;
+                       // ProviderLevel.LevelProgress = 0;
                         ProviderLevel.initTabPage = 0;
-                        ProviderLevel.tabcontroller?.animateTo(0);
+                        ProviderLevel.levelFormTabController?.animateTo(0);
                         winPage = false;
                       });
                     },

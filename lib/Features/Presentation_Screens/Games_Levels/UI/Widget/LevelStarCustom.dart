@@ -36,3 +36,31 @@ class LevelStarCustom extends StatelessWidget {
     );
   }
 }
+
+
+Widget Level3Star({
+  required int starsize,
+  //required bool starcolor,
+}) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Icon(
+        Icons.star,
+        size: starsize == 3 ? 70 : 40,
+        color: MyColor().gray,
+      ),
+      Icon(
+        Icons.star,
+        size: starsize == 2 ? 70 : 40,
+        color: starsize == 3 ? Colors.yellow : MyColor().gray,
+      ),
+      Icon(
+        Icons.star,
+        size: starsize == 1 ? 70 : 40,
+        color:
+        starsize == 2 || starsize == 3 ? Colors.yellow : MyColor().gray,
+      ),
+    ],
+  );
+}

@@ -10,9 +10,12 @@ class FreeWidget {
       double? fontSize}) {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(
-          content,
-          style: TextStyle(fontSize: fontSize),
+        content: Align(
+          alignment: Alignment.topRight,
+          child: Text(
+            content,
+            style: TextStyle(fontSize: fontSize),
+          ),
         ),
         duration: Duration(seconds: duration),
       ),
@@ -70,11 +73,14 @@ class FreeWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Align(
-          alignment: Alignment.centerRight,
-          child: Text(
-            lableText,
-            style: TextStyle(fontSize: 12, color: MyColor().gray),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              lableText,
+              style: TextStyle(fontSize: 13, color: MyColor().gray),
+            ),
           ),
         ),
         SizedBox(
@@ -97,7 +103,7 @@ class FreeWidget {
             fillColor: Colors.white,
             prefixIcon: perfixicon,
             hintText: hintTitle,
-            hintStyle: TextStyle(color: MyColor().gray_white, fontSize: 15),
+            hintStyle: TextStyle(color: MyColor().gray_white, fontSize: 12),
             errorStyle: TextStyle(fontSize: 10),
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -206,6 +212,7 @@ class FreeWidget {
   }) {
     return Column(
       children: [
+
         Container(
           child: Image(
             height: height * 0.15,

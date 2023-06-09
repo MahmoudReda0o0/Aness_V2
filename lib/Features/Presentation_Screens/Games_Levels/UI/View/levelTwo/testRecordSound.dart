@@ -1,36 +1,38 @@
 import 'dart:async';
 import 'dart:io';
+//import 'package:audio/Feature/Presintation/SoundRedorder/Data/ApiServisesFruit.dart';
 import 'package:audio_session/audio_session.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:flutter_sound_platform_interface/flutter_sound_recorder_platform_interface.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:path_provider/path_provider.dart';
+
 
 ///
 typedef _Fn = void Function();
 
-
 const theSource = AudioSource.microphone;
 
 /// Example app.
-class RecordFruitSound extends StatefulWidget {
+class SimpleRecorder extends StatefulWidget {
   @override
-  _RecordFruitSoundState createState() => _RecordFruitSoundState();
+  _SimpleRecorderState createState() => _SimpleRecorderState();
 }
 
-class _RecordFruitSoundState extends State<RecordFruitSound> {
+class _SimpleRecorderState extends State<SimpleRecorder> {
+  Directory? directory;
   Codec _codec = Codec.aacMP4;
-  String _mPath = '/data/user/0/com.example.autism_app/app_flutter/sound.mp4';
+  late String _mPath = '/data/user/0/com.example.audio/app_flutter/sound.mp4';
   FlutterSoundPlayer? _mPlayer = FlutterSoundPlayer();
   FlutterSoundRecorder? _mRecorder = FlutterSoundRecorder();
   bool _mPlayerIsInited = false;
   bool _mRecorderIsInited = false;
   bool _mplaybackReady = false;
-  bool stopbool = false;
   late File _audioFile;
-  Directory? directory;
+ // late File AudioFile;
+  //late ApiServisesFruit apiServises;
 
   Future<Directory?> getTempDirectory () async {
     directory = await getTemporaryDirectory();
@@ -38,6 +40,8 @@ class _RecordFruitSoundState extends State<RecordFruitSound> {
   }
   @override
   void initState() {
+    getTemporaryDirectory();
+   // apiServises = ApiServisesFruit();
     _mPlayer!.openPlayer().then((value) {
       setState(() {
         _mPlayerIsInited = true;
@@ -72,7 +76,7 @@ class _RecordFruitSoundState extends State<RecordFruitSound> {
     await _mRecorder!.openRecorder();
     if (!await _mRecorder!.isEncoderSupported(_codec) && kIsWeb) {
       _codec = Codec.opusWebM;
-      _mPath = '/data/user/0/com.example.autism_app/app_flutter/sound.mp4';
+      _mPath = 'tau_file.mp4';
       if (!await _mRecorder!.isEncoderSupported(_codec) && kIsWeb) {
         _mRecorderIsInited = true;
         return;
@@ -100,7 +104,7 @@ class _RecordFruitSoundState extends State<RecordFruitSound> {
     _mRecorderIsInited = true;
   }
 
-  // ----------------------  Here is the code for recording and playback -------
+  // ----------recording and playback Audio-------
 
 
   Future<File> DirAudioFile () async {
@@ -109,24 +113,34 @@ class _RecordFruitSoundState extends State<RecordFruitSound> {
     return audioFile;
   }
 
-  void record() {
+  Future<void> record() async {
+    File audio = await DirAudioFile();
     _mRecorder!
         .startRecorder(
       toFile: _mPath,
+      //toFile:_mPath,
       codec: _codec,
       audioSource: theSource,
     )
         .then((value) {
       setState(() {});
+      print('''
+      audio :${ audio.path }
+      absolute ${audio.absolute.path}
+      ''');
     });
+
   }
 
   void stopRecorder() async {
+    File audio= await DirAudioFile();
     await _mRecorder!.stopRecorder().then((value) {
       setState(() {
         //var url = value;
         _audioFile = File(_mPath);
-        stopbool =true;
+        //AudioFile = audio ;
+        // print(
+        //     'stop record and save audio :${AudioFile} in path : ${AudioFile.path}, ');
         _mplaybackReady = true;
       });
     });
@@ -163,6 +177,8 @@ class _RecordFruitSoundState extends State<RecordFruitSound> {
     }
     if(_mPlayer!.isStopped) return AiRecord;
     else { return stopRecorder;}
+    // else return stopRecorder;
+    //return record;
   }
 
   Future<_Fn?> AiRecord() async {
@@ -201,6 +217,7 @@ class _RecordFruitSoundState extends State<RecordFruitSound> {
                 onPressed: getRecorderFn(),
                 //color: Colors.white,
                 //disabledColor: Colors.grey,
+
                 child: Text(_mRecorder!.isRecording ? 'Stop' : 'Record'),
               ),
               SizedBox(
@@ -224,22 +241,40 @@ class _RecordFruitSoundState extends State<RecordFruitSound> {
                 width: 3,
               ),
             ),
-            child: Row(children: [
-              ElevatedButton(
-                onPressed: getPlaybackFn(),
-                //color: Colors.white,
-                //disabledColor: Colors.grey,
-                child: Text(_mPlayer!.isPlaying ? 'Stop' : 'Play'),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              Text(_mPlayer!.isPlaying
-                  ? 'Playback in progress'
-                  : 'Player is stopped'),
-            ]),
+            child: Row(
+              children: [
+                ElevatedButton(
+                  onPressed: getPlaybackFn(),
+                  //color: Colors.white,
+                  //disabledColor: Colors.grey,
+                  child: Text(_mPlayer!.isPlaying ? 'Stop' : 'Play'),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Text(_mPlayer!.isPlaying
+                    ? 'Playback in progress'
+                    : 'Player is stopped'),
+              ],
+            ),
           ),
-          Center(child:stopbool? Text('${_audioFile.path}'):SizedBox()),
+          Center(
+            child: Text('File Path :${_mPath}'),
+          ),
+          Center(
+            child: ElevatedButton(
+              onPressed: () {
+                // apiServises.PostFile(
+                //   audioFile: _audioFile,
+                // );
+                print('audio file :  and file Path is ${_audioFile.path}');
+              },
+              child: Center(
+                child: Text('Upload Audio File'),
+              ),
+            ),
+          ),
+          //Center(child: Text('audio file : ${_audioFile??'wating'} and file Path is ${_audioFile.path}'),),
         ],
       );
     }
@@ -247,7 +282,7 @@ class _RecordFruitSoundState extends State<RecordFruitSound> {
     return Scaffold(
       backgroundColor: Colors.blue,
       appBar: AppBar(
-        title: const Text('Test Recorder'),
+        title: const Text('Simple Recorder'),
       ),
       body: makeBody(),
     );

@@ -2,17 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProviderLevelForm extends ChangeNotifier{
-  int LevelProgress =2;
-  TabController? tabcontroller ;
-  TabController? levelmapTabController;
+  //int LevelProgress =2;
+  TabController? levelFormTabController ;
   int levelmapInitIndex=1;
   int initTabPage=2;
   bool starbool =false ;
   int levelindex=0;
   bool winpage =false;
   bool losepage=false;
-  String DargItem = 'Apple';
-  bool DragBool = false ;
+
 
   void Winpageselect ({required bool winpage}){
     this.winpage=winpage;
