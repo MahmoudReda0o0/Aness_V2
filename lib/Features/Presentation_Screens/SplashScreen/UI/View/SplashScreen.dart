@@ -1,14 +1,18 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:autism_app/Features/Presentation_Screens/Login/UI/View/Login.dart';
+import 'package:connection_notifier/connection_notifier.dart';
 import 'package:flutter/material.dart';
 
+import '../../../Games_Levels/UI/Widget/showWinFailPages.dart';
+import '../../../OfflineMode/Ui/view/OfflineGame.dart';
 import '../../../Sign_in/UI/View/signIn.dart';
 
 //import 'Sign_In_Screens/Sign_In.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+   SplashScreen({Key? key}) : super(key: key);
 
+  bool internet =true;
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
@@ -24,9 +28,19 @@ class SplashScreen extends StatelessWidget {
           image: AssetImage('assets/image/splash.png'),
         ),
       ),
-      nextScreen: Login(),
+      nextScreen:  ConnectionNotifierToggler(
+        onConnectionStatusChanged: (connected) {
+          /// that means it is still in the initialization phase.
+          if (connected == null) return;
+          print(connected);
+        },
+        connected: Login(),
+        disconnected: OfflineGame()
+      ),
     );
   }
+
+
 }
 
 // class SplashScreen {

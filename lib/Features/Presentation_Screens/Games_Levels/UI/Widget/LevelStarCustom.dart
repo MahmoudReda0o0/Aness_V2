@@ -47,7 +47,7 @@ Widget Level3Star({
     children: [
       Icon(
         Icons.star,
-        size: starsize == 3 ? 70 : 40,
+        size: starsize ==  3 ? 70 : 40,
         color: MyColor().gray,
       ),
       Icon(

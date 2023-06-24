@@ -33,7 +33,7 @@ class _RecordFruitNameState extends State<RecordFruitName> {
   @override
   void initState() {
     super.initState();
-    FruitRand = random.nextInt(GameList.FruitName.length);
+
   }
 
   @override
@@ -100,7 +100,7 @@ class _RecordFruitNameState extends State<RecordFruitName> {
                       await Future.delayed(Duration(seconds: 5));
                       setState(() {
                        // ProviderLevel.LevelProgress = 0;
-                        ProviderLevel.initTabPage = 0;
+                        ProviderLevel.levelForminitPage = 0;
                         ProviderLevel.levelFormTabController?.animateTo(0);
                         winPage = false;
                       });

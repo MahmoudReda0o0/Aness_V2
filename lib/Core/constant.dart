@@ -11,6 +11,7 @@ class MyColor{
   var gray_wihte2=Color(0xffE0E5EC);
 }
 
+String PublicIP ='100.26.161.6';
 
 
 class MyPageSize{

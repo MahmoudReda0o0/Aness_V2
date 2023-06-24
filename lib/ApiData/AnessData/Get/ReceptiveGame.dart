@@ -2,30 +2,38 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:autism_app/ApiData/Models/ReceptiveModel.dart';
+import '../../../Core/constant.dart';
 import 'package:http/http.dart'as http;
+
+
+import '../../../main.dart';
 
 class ApiReceptiveResult{
   bool? hasError ;
   String? errorMessage;
   ReceptiveModel? data;
+  bool? levelComplete;
+  String responseData='nothing Loaded';
 }
 
 class ApiServesesReceptiveGame {
-  Future <ApiReceptiveResult> getReceptiveData ({required int level}) async {
-    final _Uri = Uri.parse('http://54.86.189.155/api/levels/${level}/receptive/');
+   Future <ApiReceptiveResult> getReceptiveData ({required int level}) async {
+    final _Uri = Uri.parse('http://$PublicIP/api/levels/${level}/receptive/');
     ApiReceptiveResult apiReceptiveResult = ApiReceptiveResult();
     try{
       final response = await http.get( _Uri,headers: {
-        'Authorization': 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg2Mzk5NTY0LCJqdGkiOiJlNDQ3MDFhNmM2ZDc0MDA4OTNlYWViY2Q5MzQ1ODg1MyIsInVzZXJfaWQiOjIxfQ.vHs6qLncb57D4sG37T_M4Uehv4IKuhJtwfaLyZ7OYk0'
+        'Authorization': 'JWT $GlobalAccessToken'
       });
       if(response.statusCode == 200){
         apiReceptiveResult.hasError = false;
+        apiReceptiveResult.responseData = response.body;
         ReceptiveModel result = ReceptiveModel.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
         apiReceptiveResult.data = result;
-        print('Api return : ${response.body}');
+        print('Api Receptive return : ${response.body}');
       }
       else {
         apiReceptiveResult.hasError = true ;
+        apiReceptiveResult.responseData = response.body;
         apiReceptiveResult.errorMessage = 'Response body Error : ${response.statusCode}';
         print('else error : the response has error in code ${response.statusCode}');
         }

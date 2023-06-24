@@ -1,23 +1,3 @@
-// import 'package:flutter/material.dart';
-//
-// class SignIn extends StatelessWidget{
-//   Widget build(BuildContext context){
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Sign In '),
-//         centerTitle: true,
-//       ),
-//       body: Center(
-//         child: Container(
-//           height: 300,
-//           width: 300,
-//           color: Colors.green,
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 import 'package:autism_app/Features/Presentation_Screens/AccountRegister/UI/View/moreDetail.dart';
 import 'package:autism_app/Features/Presentation_Screens/Login/UI/View/Login.dart';
 import 'package:autism_app/Statemanagement/Provider/ApiProvider/Auth/ProviderLoginToken.dart';
@@ -51,14 +31,15 @@ class RegisterEmailPass_s extends State<RegisterEmailPass> {
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height;
     double _width = MediaQuery.of(context).size.width;
+    double keyboard = MediaQuery.of(context).viewInsets.bottom;
 
     return GestureDetector(
       onTap: () {
         FocusManager.instance.primaryFocus?.unfocus();
-        FocusScope.of(context).unfocus();
+        //FocusScope.of(context).unfocus();
       },
       child: Consumer<ProviderAccountRegister>(
-          builder: (BuildContext context, _, child) {
+          builder: (BuildContext context,_, child) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           body: Stack(
@@ -76,11 +57,11 @@ class RegisterEmailPass_s extends State<RegisterEmailPass> {
                   SizedBox(
                     height: 15,
                   ),
-                  Container(
+                  (keyboard==0)? Container(
                     height: 100,
                     width: 100,
                     child: Image.asset('assets/image/signicon.png'),
-                  ),
+                  ):SizedBox(),
                   Text(
                     'إنشاء حساب جديد  ',
                     style: TextStyle(fontSize: 16, color: MyColor().pink),
@@ -206,7 +187,7 @@ class RegisterEmailPass_s extends State<RegisterEmailPass> {
                   GestureDetector(
                     onTap: () {
                       print('Open Sign In Screen');
-                      Navigator.push(context,
+                      Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) => Login()));
                     },
                     child: RichText(

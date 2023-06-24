@@ -1,101 +1,99 @@
 import 'dart:math';
+import 'package:autism_app/Statemanagement/Provider/ApiProvider/AnessData/ReceptiveGame.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class SelectFour extends StatefulWidget {
-  State<StatefulWidget> createState() => SelectFour_s();
-}
+import '../../../../../../../Core/constant.dart';
+import '../../../../../../../Statemanagement/Provider/AppProvider/ProviderLevelFormOne.dart';
+import '../../../Widget/GameDescriptionText.dart';
+import '../../../Widget/SelectFruitCubeCustom.dart';
+import '../../../Widget/showWinFailPages.dart';
 
-List<String> colorNameList = ['احمر', 'اخضر','ازرق','اصفر'];
-List<int> colorIdList = [1, 2 , 3,4];
+class SelectFour extends StatelessWidget {
+  SelectFour(
+      {required this.fristFruitIndex,
+        required this.answerIndex,
+        required this.secondFruitIndex,
+        required this.thirdFruitIndex,
+        required this.fourFruitIndex,
+      });
+  int answerIndex;
+  int fristFruitIndex;
+  int secondFruitIndex;
+  int thirdFruitIndex;
+  int fourFruitIndex;
 
-int? colorId;
-int? color_user;
-MaterialColor block_color = Colors.grey;
-bool block_bool = false;
-// color[rondom_color.nextInt(color.length)];
-
-class SelectFour_s extends State<SelectFour> {
   @override
-  void initState() {
-    super.initState();
-    colorId = 1;
-  }
-
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          SizedBox(height: 30),
-          Text(
-            'أختر اللون ${colorId} : ${colorNameList[colorId!-1]}',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          Container(
-            child: Column(
-              children: [
-                color_row(Colors.red, 1, Colors.green,2),
-                SizedBox(
-                  height: 80,
-                ),
-                color_row(Colors.blue, 3, Colors.yellow, 4),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget color_row(
-      MaterialColor color_one,
-      int OneId,
-      MaterialColor color_two,
-      int TwoId,
-      ) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        block(color_one, OneId,'ImageOneUrl'),
-        block(color_two, TwoId,'ImageTwoUrl'),
-      ],
-    );
-  }
-
-  Widget block(MaterialColor color, int select,String ImageUrl) {
-    return GestureDetector(
-      onTap: () => {
-        setState(() {
-          color_user = select;
-          block_bool = !block_bool;
-        }),
-        print('user=> ${color_user}'),
-        print('com => ${colorId}'),
-        if (color_user == colorId)
-          {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('VICTORY'),
+    return Consumer2<ProviderReceptiveGame,ProviderLevelForm>(
+        builder: (context,_Rec,_levelForm,child){
+          return Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 30),
+                  Align(
+                    alignment: Alignment.center,
+                    child: GameDescriptionText(
+                        AnswerText:
+                        ' ال${_Rec.apiReceptiveResult.data!.images![answerIndex].name}',
+                        LeftText: ' من الفواكة الآتية',
+                        RightText: 'إختر '),
+                  ),
+                  SizedBox(
+                    height: 350,
+                  ),
+                ],
               ),
-            ),
-            setState(
-                    () {
-                  colorId = colorId!+1;
-                }
-              // colorIdList[colorIdRondom.nextInt(4)],
-            ),
-          }
-        else
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('YOU DIED'),
-            ),
-          ),
-      },
-      child: Container(height: 120, width: 120, color: color,child: Center(child: Text('${select}'),),),
+              Positioned(
+                bottom: 240,
+                right: 30,
+                child: SelectFruitCubeCustom(
+                    imageURL:
+                    '${_Rec.apiReceptiveResult.data!.images![fristFruitIndex].img}',
+                    cubeText: _Rec.apiReceptiveResult.data!
+                        .images![fristFruitIndex].name!,
+                    answerText: _Rec.apiReceptiveResult.data!.images![answerIndex].name),
+              ),
+              Positioned(
+                bottom: 240,
+                left: 30,
+                child: SelectFruitCubeCustom(
+                    imageURL:
+                    '${_Rec.apiReceptiveResult.data!.images![secondFruitIndex].img}',
+                    cubeText: _Rec.apiReceptiveResult.data!
+                        .images![secondFruitIndex].name!,
+                    answerText: _Rec.apiReceptiveResult.data!.images![answerIndex].name!),
+              ),
+              Positioned(
+                bottom: 50,
+                right: 30,
+                child: SelectFruitCubeCustom(
+                    imageURL:
+                    '${_Rec.apiReceptiveResult.data!.images![thirdFruitIndex].img}',
+                    cubeText: _Rec.apiReceptiveResult.data!
+                        .images![thirdFruitIndex].name!,
+                    answerText: _Rec.apiReceptiveResult.data!.answer!),
+              ),
+              Positioned(
+                bottom: 50,
+                left: 30,
+                child: SelectFruitCubeCustom(
+                    imageURL:
+                    '${_Rec.apiReceptiveResult.data!.images![fourFruitIndex].img}',
+                    cubeText: _Rec.apiReceptiveResult.data!
+                        .images![fourFruitIndex].name!,
+                    answerText: _Rec.apiReceptiveResult.data!.answer!),
+              ),
+              ShowWinFailPage(),
+            ],
+          );
+        }
     );
   }
 }
+
+
+
+

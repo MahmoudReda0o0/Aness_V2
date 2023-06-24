@@ -8,7 +8,9 @@ import 'package:provider/provider.dart';
 import '../../../../../../../Statemanagement/Provider/AppProvider/ProviderLevelFormOne.dart';
 import '../../../Widget/DragTargetCustom.dart';
 import '../../../Widget/DragableCustom.dart';
+import '../../../Widget/GameDescriptionText.dart';
 import '../../../Widget/LosePage.dart';
+import '../../../Widget/showWinFailPages.dart';
 
 class DragTwoItem extends StatelessWidget {
   DragTwoItem({required this.answerIndex,required this.fristImgIndex,required this.secondImgIndex});
@@ -40,9 +42,9 @@ class DragTwoItem extends StatelessWidget {
                     width: MyPageSize.width(context),
                     //  color: Colors.deepPurple,
                     child: Center(
-                      child: Text(
-                        'اسحب الفاكهة للظل المناسب لها',
-                        style: TextStyle(fontSize: 18, color: MyColor().gray),
+                      child:GameDescriptionText(AnswerText: ' ال${__.apiReceptiveResult.data!.images![answerIndex].name}',
+                        LeftText: ' للظل المناسب لها',
+                        RightText: 'اسحب ',
                       ),
                     ),
                   ),
@@ -50,9 +52,9 @@ class DragTwoItem extends StatelessWidget {
                     top: 100,
                     right: 130,
                     child: DragTargetCustom(
-                        dataAnswer: '${__.apiReceptiveResult.data!.answer}',
+                        dataAnswer: '${__.apiReceptiveResult.data!.images![answerIndex].name}',
                         image:
-                            'http://54.86.189.155${__.apiReceptiveResult.data!.images![answerIndex].img}'),
+                            '${__.apiReceptiveResult.data!.images![answerIndex].img}'),
                   ),
                   Positioned(
                     bottom: 100,
@@ -60,7 +62,7 @@ class DragTwoItem extends StatelessWidget {
                     child: DragableCustom(
                       data: '${__.apiReceptiveResult.data!.images![fristImgIndex].name}',
                       image:
-                          'http://54.86.189.155${__.apiReceptiveResult.data!.images![fristImgIndex].img}',
+                          '${__.apiReceptiveResult.data!.images![fristImgIndex].img}',
                     ),
                   ),
                   Positioned(
@@ -70,19 +72,14 @@ class DragTwoItem extends StatelessWidget {
                       data:
                           '${__.apiReceptiveResult.data!.images![secondImgIndex].name}',
                       image:
-                          'http://54.86.189.155${__.apiReceptiveResult.data!.images![secondImgIndex].img}',
+                          '${__.apiReceptiveResult.data!.images![secondImgIndex].img}',
                     ),
                   ),
                   //Positioned(bottom: 10,left: 50,child: DragableCustom(data: 'adsd',image: 'Mango',))
                 ],
               ),
             ),
-            Center(
-              child: _.winpage ? WinPage() : SizedBox(),
-            ),
-            Center(
-              child: _.losepage ? LosePage() : SizedBox(),
-            ),
+            ShowWinFailPage(),
           ],
         );
       }),

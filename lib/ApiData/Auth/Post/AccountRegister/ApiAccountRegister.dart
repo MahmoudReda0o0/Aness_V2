@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:autism_app/ApiData/Auth/Post/AccountRegister/ModelAccountRegister.dart';
+import 'package:autism_app/ApiData/Models/ModelAccountRegister.dart';
 import 'package:http/http.dart' as http;
+
+import '../../../../Core/constant.dart';
+import '../../../../main.dart';
 
 class AccountRegisterResult{
   bool? hasError;
@@ -20,8 +23,9 @@ class ApiAccountRegister {
     required String email,
     required String password,
     required String re_password,
+    required String gender,
   }) async {
-    final _Url = "http://54.86.189.155/auth/users/";
+    final _Url = "http://$PublicIP/auth/users/";
     final _Uri = Uri.parse(_Url);
     AccountRegisterResult accountRegisterResult = AccountRegisterResult();
     try {
@@ -31,7 +35,7 @@ class ApiAccountRegister {
             "first_name": fristname,
             "last_name": lastname,
             "username": username,
-            "gender": "M",
+            "gender": gender,
             "date_of_birth": "2000-01-01",
             "email": email,
             "password": password,

@@ -13,12 +13,16 @@ class ProviderReceptiveGame extends ChangeNotifier {
       apiReceptiveResult = await ApiServesesReceptiveGame().getReceptiveData(level: level);
       notifyListeners();
       if(apiReceptiveResult.hasError == false){
+        apiReceptiveResult.levelComplete=true;
+        notifyListeners();
         receptiveModel = apiReceptiveResult.data!;
         print('data done');
         notifyListeners();
       }
       else{
         apiReceptiveResult.errorMessage ='Unable to load data';
+        apiReceptiveResult.levelComplete=false;
+        notifyListeners();
         print('data error');
         notifyListeners();
       }

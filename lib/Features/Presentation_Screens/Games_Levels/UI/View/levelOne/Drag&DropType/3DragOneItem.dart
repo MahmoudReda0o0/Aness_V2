@@ -8,10 +8,16 @@ import 'package:provider/provider.dart';
 import '../../../../../../../Statemanagement/Provider/AppProvider/ProviderLevelFormOne.dart';
 import '../../../Widget/DragTargetCustom.dart';
 import '../../../Widget/DragableCustom.dart';
+import '../../../Widget/GameDescriptionText.dart';
 import '../../../Widget/LosePage.dart';
+import '../../../Widget/showWinFailPages.dart';
 
 class DragThreeItem extends StatelessWidget {
-  DragThreeItem({required this.answerIndex,required this.fristImgIndex , required this.secondImgIndex,required this.thirdImgIndex});
+  DragThreeItem(
+      {required this.answerIndex,
+      required this.fristImgIndex,
+      required this.secondImgIndex,
+      required this.thirdImgIndex});
   int answerIndex;
   int fristImgIndex;
   int secondImgIndex;
@@ -24,71 +30,74 @@ class DragThreeItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Consumer2<ProviderLevelForm,ProviderReceptiveGame>(
-          builder: (context,_,__,child) {
-            return Stack(
-              children: [
-                Container(
-                  height: MyPageSize.height(context),
-                  width: MyPageSize.width(context),
-                  //color: Colors.red,
-                  child: Stack(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.all(10),
-                        height: 50,
-                        width: MyPageSize.width(context),
-                        //  color: Colors.deepPurple,
-                        child: Center(child: Text('اسحب الفاكهة للظل المناسب لها',style: TextStyle(fontSize: 18,color: MyColor().gray),),),
+      child: Consumer2<ProviderLevelForm, ProviderReceptiveGame>(
+          builder: (context, _, __, child) {
+        return Stack(
+          children: [
+            Container(
+              height: MyPageSize.height(context),
+              width: MyPageSize.width(context),
+              //color: Colors.red,
+              child: Stack(
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    height: 50,
+                    width: MyPageSize.width(context),
+                    //  color: Colors.deepPurple,
+                    child: Center(
+                      child:GameDescriptionText(AnswerText: ' ال${__.apiReceptiveResult.data!.images![answerIndex].name}',
+                        LeftText: ' للظل المناسب لها',
+                        RightText: 'اسحب ',
                       ),
-                      Positioned(
-                        top: 100,
-                        right:130,
-                        child: DragTargetCustom(
-                            dataAnswer: '${__.apiReceptiveResult.data!.answer}',
-                            image: 'http://54.86.189.155${__.apiReceptiveResult.data!.images![answerIndex].img}'),
-                      ),
-                      Positioned(
-                        bottom:230,
-                        left: 130,
-                        child:DragableCustom(
-                          data: '${__.apiReceptiveResult.data!.images![fristImgIndex].name}',
-                          image:
-                          'http://54.86.189.155${__.apiReceptiveResult.data!.images![fristImgIndex].img}',
-                        ),
-                      ),
-                      Positioned(
-                        bottom:50,
-                        left:30,
-                        child: DragableCustom(
-                          data: '${__.apiReceptiveResult.data!.images![secondImgIndex].name}',
-                          image:
-                          'http://54.86.189.155${__.apiReceptiveResult.data!.images![secondImgIndex].img}',
-                        ),
-                      ),
-                      Positioned(
-                        bottom:50,
-                        right: 30,
-                        child: DragableCustom(
-                          data: '${__.apiReceptiveResult.data!.images![thirdImgIndex].name}',
-                          image:
-                          'http://54.86.189.155${__.apiReceptiveResult.data!.images![thirdImgIndex].img}',
-                        ),
-                      ),
-                      //Positioned(bottom: 10,left: 50,child: DragableCustom(data: 'adsd',image: 'Mango',))
-                    ],
+                    ),
                   ),
-                ),
-                Center(
-                  child: _.winpage ? WinPage() : SizedBox(),
-                ),
-                Center(
-                  child: _.losepage ? LosePage() : SizedBox(),
-                ),
-              ],
-            );
-          }
-      ),
+                  Positioned(
+                    top: 100,
+                    left: 120,
+                    child: DragTargetCustom(
+                        dataAnswer: '${__.apiReceptiveResult.data!.images![answerIndex].name}',
+                        image:
+                            '${__.apiReceptiveResult.data!.images![answerIndex].img}'),
+                  ),
+                  Positioned(
+                    bottom: 230,
+                    left: 120,
+                    child: DragableCustom(
+                      data:
+                          '${__.apiReceptiveResult.data!.images![fristImgIndex].name}',
+                      image:
+                          '${__.apiReceptiveResult.data!.images![fristImgIndex].img}',
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 50,
+                    left: 30,
+                    child: DragableCustom(
+                      data:
+                          '${__.apiReceptiveResult.data!.images![secondImgIndex].name}',
+                      image:
+                          '${__.apiReceptiveResult.data!.images![secondImgIndex].img}',
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 50,
+                    right: 30,
+                    child: DragableCustom(
+                      data:
+                          '${__.apiReceptiveResult.data!.images![thirdImgIndex].name}',
+                      image:
+                          '${__.apiReceptiveResult.data!.images![thirdImgIndex].img}',
+                    ),
+                  ),
+                  //Positioned(bottom: 10,left: 50,child: DragableCustom(data: 'adsd',image: 'Mango',))
+                ],
+              ),
+            ),
+            ShowWinFailPage(),
+          ],
+        );
+      }),
     );
   }
 }

@@ -7,7 +7,7 @@ class GameBackImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Container (
       height: MyPageSize.height(context),
       width: MyPageSize.width(context),
       child: Image(

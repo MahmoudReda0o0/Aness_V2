@@ -14,7 +14,7 @@ class LosePage extends StatelessWidget {
             height: MyPageSize.height(context),
             width: MyPageSize.width(context),
             //padding: EdgeInsets.only(top: 80, left: 50),
-            child: Image(
+            child: Image (
               image: AssetImage('assets/image/games/vegetables.png'),
             )
         ),

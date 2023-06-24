@@ -23,7 +23,7 @@ class DragableCustom extends StatelessWidget {
           ),
           height: 140,
           width: 140,
-          child: Image.network('${image}'),
+          child: Image.network ('http://$PublicIP$image'),
         ),
       ),
       feedback: Padding(
@@ -35,7 +35,7 @@ class DragableCustom extends StatelessWidget {
           ),
           height: 140,
           width: 140,
-          child: Image.network('${image}')
+          child: Image.network('http://$PublicIP$image')
         ),
       ),
       childWhenDragging: Container(

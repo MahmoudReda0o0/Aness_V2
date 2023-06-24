@@ -102,7 +102,7 @@ class _ChatPageState extends State<ChatPage> {
                   });
                   await Future.delayed(Duration(seconds: 5));
                   setState(() {
-                    Provider.of<ProviderLevelForm>(context,listen: false).levelmapInitIndex=0;
+                    Provider.of<ProviderLevelForm>(context,listen: false).startPageInitController=0;
                   });
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => StartPage()));
