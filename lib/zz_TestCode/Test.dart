@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:autism_app/ApiData/Models/ReceptiveModel.dart';
+import 'package:autism_app/Features/Presentation_Screens/Games_Levels/UI/View/levelThree/TalkToAnees.dart';
 import 'package:autism_app/Statemanagement/Provider/ApiProvider/AnessData/ChildProfile.dart';
 import 'package:autism_app/Statemanagement/Provider/AppProvider/ProviderTextToSpeech.dart';
 import 'package:flutter/material.dart';
@@ -44,26 +45,9 @@ class _TestPageState extends State<TestPage> {
         builder: (context, _, child) {
           return Center(
             child: ElevatedButton(
-              onPressed: () async {
-                // await ApiServesesReceptiveGame().getReceptiveData(level: 1);
-                print('child error : ${_.childProfileResult.errorMessage}');
-                print('Ui print : ${_.childProfileResult}');
-                print(
-                    'Exp :${_.childProfileResult.childProfileModel!.accuracy!.expressive}');
-                print(
-                    'Res :${_.childProfileResult.childProfileModel!.accuracy!.receptive}');
-                print(
-                    'Social :${_.childProfileResult.childProfileModel!.accuracy!.social}');
-                print(
-                    'CurrentLevel :${_.childProfileResult.childProfileModel!.currentLevel}');
-                print(
-                    'userName :${_.childProfileResult.childProfileModel!.userInfo!.username}');
-                print(
-                    'email :${_.childProfileResult.childProfileModel!.userInfo!.email}');
-                print(
-                    'fristN :${_.childProfileResult.childProfileModel!.userInfo!.firstName}');
-                print(
-                    'Current level :${_.childProfileResult.childProfileModel!.currentLevel}');
+              onPressed: () {
+
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>TalkToAnees()));
               },
               child: FlutterLogo(size: 20),
             ),

@@ -1,4 +1,6 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:autism_app/Features/Presentation_Screens/AccountRegister/UI/View/RegisterEmailPass.dart';
+import 'package:autism_app/Features/Presentation_Screens/SplashScreen/UI/View/SplashScreen.dart';
 import 'package:autism_app/zz_TestCode/MainPage.dart';
 
 import 'package:autism_app/Core/constant.dart';
@@ -252,7 +254,7 @@ class MoreDetail_s extends State<MoreDetail> {
                                   ? Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => StartPage(),
+                                        builder: (context) => Login(),
                                       ),
                                     )
                                   : Navigator.push(
@@ -297,38 +299,63 @@ class MoreDetail_s extends State<MoreDetail> {
             ),
           ),
         );
-      } else if (providerAccountRegister.state == AccountRegisterState.error) {
+      }
+      else if (providerAccountRegister.state == AccountRegisterState.error) {
         return RegisterEmailPass();
-      } else if (providerAccountRegister.state == AccountRegisterState.loaded) {
-        return Scaffold(
-          body: Consumer<ProviderAccountRegister>(
-              builder: (BuildContext context, _, child) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('FristName :${_.Fristname}'),
-                Text(' Lastname:${_.Lastname}'),
-                Text('Username :${_.Username}'),
-                Text('Email :${_.Email}'),
-                Text('Password :${_.Password}'),
-                Text('Re_Password :${_.Re_Password}'),
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() =>
-                      Provider.of<ProviderLoginToken>(context, listen: false)
-                          .state = LoginTokenState.pop);
-                      print(
-                          'state : ${Provider.of<ProviderLoginToken>(context, listen: false).state}');
-                      // Provider.of<ProviderLoginToken>(context,listen: false).initalLoginPage();
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => Login()));
-                    },
-                    child: Icon(Icons.done))
-              ],
-            );
-          }),
+      }
+       else if (providerAccountRegister.state == AccountRegisterState.loaded) {
+        return AnimatedSplashScreen(
+          backgroundColor: Color(0xFFf79999),
+          curve: Curves.bounceOut,
+          duration:3000,
+          splashIconSize: 300,
+          splash: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 230,
+                width: 150,
+                child: Opacity(
+                  opacity: 0.5,
+                  child: Image(
+                    fit: BoxFit.fill,
+                    image: AssetImage('assets/image/splash.png'),
+                  ),
+                ),
+              ),
+              SizedBox(height: 30,),
+              Text('تم انشاء حساب جديد بنجاح ✌',style: TextStyle(fontSize: 15),)
+            ],
+          ),
+          nextScreen: Login(),
         );
-      } else {
+            // return Column(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     Text('FristName :${_.Fristname}'),
+            //     Text(' Lastname:${_.Lastname}'),
+            //     Text('Username :${_.Username}'),
+            //     Text('Email :${_.Email}'),
+            //     Text('Password :${_.Password}'),
+            //     Text('Re_Password :${_.Re_Password}'),
+            //     ElevatedButton(
+            //         onPressed: () {
+            //           setState(() =>
+            //           Provider.of<ProviderLoginToken>(context, listen: false)
+            //               .state = LoginTokenState.pop);
+            //           print(
+            //               'state : ${Provider.of<ProviderLoginToken>(context, listen: false).state}');
+            //           // Provider.of<ProviderLoginToken>(context,listen: false).initalLoginPage();
+            //           Navigator.pushReplacement(context,
+            //               MaterialPageRoute(builder: (context) => Login()));
+            //         },
+            //         child: Icon(Icons.done))
+            //   ],
+            // );
+
+
+      }
+      else {
         return Container(
           height: MyPageSize.height(context),
           width: MyPageSize.width(context),

@@ -6,11 +6,14 @@ import 'package:autism_app/Statemanagement/Provider/ApiProvider/Auth/ProviderAcc
 import 'package:autism_app/Statemanagement/Provider/ApiProvider/Auth/ProviderLoginToken.dart';
 import 'package:autism_app/Statemanagement/Provider/AppProvider/ProviderData.dart';
 import 'package:autism_app/Statemanagement/Provider/AppProvider/ProviderStartPage.dart';
+import 'package:autism_app/zz_TestCode/Test.dart';
 import 'package:connection_notifier/connection_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'Features/Presentation_Screens/Games_Levels/UI/View/levelThree/TalkToAnees.dart';
 import 'Features/Presentation_Screens/SplashScreen/UI/View/SplashScreen.dart';
 import 'Statemanagement/Provider/ApiProvider/AnessData/ExpressiveGame.dart';
+import 'Statemanagement/Provider/ApiProvider/AnessData/SocialGame.dart';
 import 'Statemanagement/Provider/AppProvider/ProviderLevelFormOne.dart';
 
 
@@ -37,6 +40,8 @@ class MyApp extends StatelessWidget {
       ChangeNotifierProvider<ProviderStartPage>(create: (context)=>ProviderStartPage()),
       ChangeNotifierProvider<ProviderAiSound>(create: (context)=>ProviderAiSound()),
       ChangeNotifierProvider<ProviderChildProfile>(create: (context)=>ProviderChildProfile()),
+      ChangeNotifierProvider<ProviderSocialGame>(create: (context)=>ProviderSocialGame()),
+
     ],
       child: ConnectionNotifier(
         child: MaterialApp(

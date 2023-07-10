@@ -107,7 +107,7 @@ class PersonalPage_s extends State<PresonalPage> {
                                     Align(
                                       alignment: Alignment.centerRight,
                                       child: Text(
-                                        '${_.childProfileResult.childProfileModel!.userInfo!.username}',
+                                        '${_.childProfileResult!.childProfileModel!.userInfo!.username}',
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 14),
                                       ),
@@ -118,7 +118,7 @@ class PersonalPage_s extends State<PresonalPage> {
                                     Align(
                                       alignment: Alignment.centerRight,
                                       child: Text(
-                                        '${_.childProfileResult.childProfileModel!.userInfo!.email}',
+                                        '${_.childProfileResult!.childProfileModel!.userInfo!.email}',
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 14),
                                       ),
@@ -160,7 +160,7 @@ class PersonalPage_s extends State<PresonalPage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'المستوى ${_.childProfileResult.childProfileModel!.currentLevel}',
+                                    'المستوى ${_.childProfileResult!.childProfileModel!.currentLevel}',
                                     style: TextStyle(
                                         color: MyColor().gray_white,
                                         fontSize: 16),
@@ -398,21 +398,21 @@ class PersonalPage_s extends State<PresonalPage> {
                     //ChildProfileResult childData =await ChildProfileApi().GetChildProfileData();
                     print('Ui print : $_');
                     print(
-                        'Exp :${_.childProfileResult.childProfileModel!.accuracy!.receptive}');
+                        'Exp :${_.childProfileResult!.childProfileModel!.accuracy!.receptive}');
                     print(
-                        'Res :${_.childProfileResult.childProfileModel!.accuracy!.expressive}');
+                        'Res :${_.childProfileResult!.childProfileModel!.accuracy!.expressive}');
                     print(
-                        'Social :${_.childProfileResult.childProfileModel!.accuracy!.social}');
+                        'Social :${_.childProfileResult!.childProfileModel!.accuracy!.social}');
                     print(
-                        'CurrentLevel :${_.childProfileResult.childProfileModel!.currentLevel}');
+                        'CurrentLevel :${_.childProfileResult!.childProfileModel!.currentLevel}');
                     print(
-                        'userName :${_.childProfileResult.childProfileModel!.userInfo!.username}');
+                        'userName :${_.childProfileResult!.childProfileModel!.userInfo!.username}');
                     print(
-                        'email :${_.childProfileResult.childProfileModel!.userInfo!.email}');
+                        'email :${_.childProfileResult!.childProfileModel!.userInfo!.email}');
                     print(
-                        'fristN :${_.childProfileResult.childProfileModel!.userInfo!.firstName}');
+                        'fristN :${_.childProfileResult!.childProfileModel!.userInfo!.firstName}');
                     print(
-                        'Current level :${_.childProfileResult.childProfileModel!.currentLevel}');
+                        'Current level :${_.childProfileResult!.childProfileModel!.currentLevel}');
                   },
                   child: FlutterLogo(size: 20),
                 ),

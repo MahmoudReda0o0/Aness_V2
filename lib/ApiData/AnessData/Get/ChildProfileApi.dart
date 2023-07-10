@@ -18,7 +18,7 @@ class ChildProfileApi {
 
   Future<ChildProfileResult> GetChildProfileData () async {
     ChildProfileResult childProfileResult = ChildProfileResult();
-    ChildProfileModel childProfileModel = ChildProfileModel();
+   // ChildProfileModel childProfileModel = ChildProfileModel();
     Uri _Uri = Uri.parse('http://$PublicIP/api/children/me/');
     try {
       final response = await http.get( _Uri,headers: {

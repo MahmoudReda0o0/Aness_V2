@@ -3,6 +3,7 @@ import 'package:autism_app/Features/Presentation_Screens/Games_Levels/UI/Widget/
 import 'package:autism_app/Statemanagement/Provider/ApiProvider/AnessData/ChildProfile.dart';
 import 'package:autism_app/Statemanagement/Provider/ApiProvider/AnessData/ExpressiveGame.dart';
 import 'package:autism_app/Statemanagement/Provider/ApiProvider/AnessData/ReceptiveGame.dart';
+import 'package:autism_app/Statemanagement/Provider/ApiProvider/AnessData/SocialGame.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../../Statemanagement/Provider/ApiProvider/Auth/ProviderLoginToken.dart';
@@ -31,8 +32,8 @@ class LevelMap_s extends State<LevelMap> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Consumer3<ProviderReceptiveGame, ProviderExpressiveGame,ProviderChildProfile>(
-            builder: (context, _, __,_child, child) {
+        body: Consumer4<ProviderReceptiveGame, ProviderExpressiveGame,ProviderSocialGame,ProviderChildProfile>(
+            builder: (context, _, __,___,_child, child) {
           return Stack(
             children: [
               FreeWidget().startPageBackImage(
@@ -64,7 +65,7 @@ class LevelMap_s extends State<LevelMap> {
                                     ),
                                   ),
                                   TextSpan(
-                                      text: ' ${_child.childProfileResult.childProfileModel!.userInfo!.firstName} ',
+                                      text: ' ${_child.childProfileResult?.childProfileModel!.userInfo!.firstName} ',
                                       style: TextStyle(
                                         color: MyColor().pink,
                                         //fontSize: 15
@@ -114,7 +115,7 @@ class LevelMap_s extends State<LevelMap> {
                             ),
                             SizedBox(width: 100,),
                             Text(
-                              'انت في المستوي ${_child.childProfileResult.childProfileModel!.currentLevel} ',
+                              'انت في المستوي ${_child.childProfileResult!.childProfileModel!.currentLevel} ',
                               style: TextStyle(
                                   fontSize: 15, color: MyColor().gray),
                             ),
@@ -145,14 +146,15 @@ class LevelMap_s extends State<LevelMap> {
                 fun: () async {
                   await _.GetReceptiveData(level: 5);
                   await __.GetExpressiveData(level: 5);
+                  await ___.GetSocialGame(level: 5);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => LevelForm(
                           GamesList: GameList.LevelFive,
                           levelindex: 5,
-                          initTapconPage: 6,
-                          tabConLength: 7),
+                          initTapconPage: 7,
+                          tabConLength: 8),
                     ),
                   );
                 },
@@ -164,14 +166,15 @@ class LevelMap_s extends State<LevelMap> {
                 fun: () async {
                   await _.GetReceptiveData(level: 4);
                   await __.GetExpressiveData(level: 4);
+                  await ___.GetSocialGame(level: 4);
                        Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => LevelForm(
                                 levelindex: 4,
                                   GamesList: GameList.LevelFour,
-                                  initTapconPage: 6,
-                                  tabConLength: 7),
+                                  initTapconPage: 7,
+                                  tabConLength: 8),
                             ),
                           );
                 },
@@ -240,37 +243,38 @@ class LevelMap_s extends State<LevelMap> {
                 fun: () async {
                   await _.GetReceptiveData(level: 1);
                   await __.GetExpressiveData(level: 1);
+                  await ___.GetSocialGame(level: 5);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => LevelForm(
                           GamesList: GameList.levelZero,
                           levelindex: 1,
-                          initTapconPage: 2,
-                          tabConLength: 3),
+                          initTapconPage: 3,
+                          tabConLength: 4),
                     ),
                   );
                 },
                 bottom: 120,
                 left: 50,
               ),
-              Positioned(
-                top: 20,
-                left: 20,
-                child: ElevatedButton(
-                  onPressed: () {
-                    setState(() =>
-                    Provider.of<ProviderLoginToken>(context, listen: false)
-                        .state = LoginTokenState.pop);
-                    print(
-                        'state : ${Provider.of<ProviderLoginToken>(context, listen: false).state}');
-                    // Provider.of<ProviderLoginToken>(context,listen: false).initalLoginPage();
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => Login()));
-                  },
-                  child: FlutterLogo(size: 20),
-                ),
-              ),
+              // Positioned(
+              //   top: 20,
+              //   left: 20,
+              //   child: ElevatedButton(
+              //     onPressed: () {
+              //       setState(() =>
+              //       Provider.of<ProviderLoginToken>(context, listen: false)
+              //           .state = LoginTokenState.pop);
+              //       print(
+              //           'state : ${Provider.of<ProviderLoginToken>(context, listen: false).state}');
+              //       // Provider.of<ProviderLoginToken>(context,listen: false).initalLoginPage();
+              //       Navigator.pushReplacement(context,
+              //           MaterialPageRoute(builder: (context) => Login()));
+              //     },
+              //     child: FlutterLogo(size: 20),
+              //   ),
+              // ),
 
               // levelPosition(levelindex: 4,page: LevelForm(), top: 260, left: 100),
               // levelPosition(levelindex: 3,page: LevelForm(), top: 350, right: 90),
@@ -326,7 +330,7 @@ class LevelMap_s extends State<LevelMap> {
             print('open level one');
             if (heartCounter > 0) {
 
-              if(levelindex<= navigationKey.currentContext!.read<ProviderChildProfile>().childProfileResult.childProfileModel!.currentLevel!){
+              if(levelindex<= navigationKey.currentContext!.read<ProviderChildProfile>().childProfileResult!.childProfileModel!.currentLevel!){
                 heartCounter--;
                 fun();
               }else{
@@ -354,10 +358,10 @@ class LevelMap_s extends State<LevelMap> {
           radius: 40,
           child: Image(
             image:
-                levelindex < Provider.of<ProviderChildProfile>(context).childProfileResult.childProfileModel!.currentLevel!
+                levelindex < Provider.of<ProviderChildProfile>(context).childProfileResult!.childProfileModel!.currentLevel!
                     ? AssetImage('assets/image/games/levelmap/finish.png')
                     : levelindex ==
-                    Provider.of<ProviderChildProfile>(context).childProfileResult.childProfileModel!.currentLevel!
+                    Provider.of<ProviderChildProfile>(context).childProfileResult!.childProfileModel!.currentLevel!
                         ? AssetImage('assets/image/games/levelmap/start.png')
                         : AssetImage('assets/image/games/levelmap/lock.png'),
           ),

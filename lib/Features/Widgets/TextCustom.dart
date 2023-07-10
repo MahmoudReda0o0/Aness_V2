@@ -7,18 +7,16 @@ class TextCustom extends StatelessWidget {
   double? fontsize;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          '${title}',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: color,
-            fontSize: fontsize,
-          ),
+    return Align(
+      alignment: Alignment.center,
+      child: Text(
+        '${title}',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: color,
+          fontSize: fontsize,
         ),
-        SizedBox(height: 10,)
-      ],
+      ),
     );
   }
 }

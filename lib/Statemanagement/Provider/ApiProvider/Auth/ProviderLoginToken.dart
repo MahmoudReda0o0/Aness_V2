@@ -1,5 +1,6 @@
 import 'package:autism_app/ApiData/Models/ModelLoginToken.dart';
 import 'package:autism_app/Features/Widgets/LoadingDialog.dart';
+import '../../../../Features/Presentation_Screens/App_Start_Page/UI/View/StartPage.dart';
 import '../../../../main.dart';
 import 'package:flutter/material.dart';
 import '../../../../ApiData/Auth/Post/LoginToken/ApiLoginToken.dart';
@@ -29,7 +30,7 @@ class ProviderLoginToken extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> Login({
+  Future<void> login({
     required String email,
     required String password,
     BuildContext? context ,
@@ -41,12 +42,13 @@ class ProviderLoginToken extends ChangeNotifier {
       loginApiResult = await apiloginToken.LoginPostData(Email: email,Password: password);
       print('after request login State : $state');
 
-      if(!loginApiResult.hasError!){
+      if(loginApiResult.hasError==false){
         loginModel = loginApiResult.data!;
         GlobalAccessToken =loginModel.access!;
         showErrorMessage= false;
         Sharedloaded =true;
         state = LoginTokenState.loaded;
+        Navigator.pushReplacement(navigationKey.currentContext!, MaterialPageRoute(builder: (context)=>StartPage()));
         print('GlobalAccessToken : $GlobalAccessToken');
         notifyListeners();
       }

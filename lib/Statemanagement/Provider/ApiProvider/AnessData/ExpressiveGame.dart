@@ -9,7 +9,7 @@ import '../../../../ApiData/Models/ExpressiveModel.dart';
 class ProviderExpressiveGame extends ChangeNotifier {
   ExpressiveModel expressiveModel = ExpressiveModel();
   ApiExpressiveResult apiExpressiveResult = ApiExpressiveResult();
-  AiFruitSound aiFruitSound = AiFruitSound();
+  //AiFruitSound aiFruitSound = AiFruitSound();
 
   Future GetExpressiveData ({required int level}) async {
     try{

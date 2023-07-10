@@ -5,6 +5,7 @@ import 'package:autism_app/Features/Widgets/FreeWidget.dart';
 import 'package:autism_app/Statemanagement/Provider/ApiProvider/AnessData/AiFruitSound.dart';
 import 'package:autism_app/Statemanagement/Provider/ApiProvider/AnessData/ExpressiveGame.dart';
 import 'package:autism_app/Statemanagement/Provider/ApiProvider/AnessData/GameAnswer.dart';
+import 'package:autism_app/Statemanagement/Provider/ApiProvider/AnessData/ReceptiveGame.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
@@ -38,14 +39,14 @@ class _RecordFruitSoundState extends State<RecordFruitSound> {
   Codec _codec = Codec.aacMP4;
   String _mPath = '/data/user/0/com.example.autism_app/app_flutter/sound.mp4';
   FlutterSoundPlayer? _mPlayer = FlutterSoundPlayer();
-  FlutterSoundRecorder? _mRecorder = FlutterSoundRecorder();
+ late FlutterSoundRecorder _mRecorder ;
   bool _mPlayerIsInited = false;
   bool _mRecorderIsInited = false;
   bool _mplaybackReady = false;
   bool stopbool = false;
   late File _audioFile;
   Directory? directory;
-  late AiFruitSound aiFruitSound;
+  late AiSoundPredict aiFruitSound;
 
   Future<Directory?> getTempDirectory() async {
     directory = await getTemporaryDirectory();
@@ -54,18 +55,23 @@ class _RecordFruitSoundState extends State<RecordFruitSound> {
 
   @override
   void initState() {
-    aiFruitSound = AiFruitSound();
-    _mPlayer!.openPlayer().then((value) {
-      setState(() {
-        _mPlayerIsInited = true;
-      });
-    });
+    aiFruitSound = AiSoundPredict();
+
+
+    _mRecorder =FlutterSoundRecorder();
 
     openTheRecorder().then((value) {
       setState(() {
         _mRecorderIsInited = true;
       });
     });
+
+    _mPlayer!.openPlayer().then((value) {
+      setState(() {
+        _mPlayerIsInited = true;
+      });
+    });
+
     super.initState();
   }
 
@@ -75,7 +81,7 @@ class _RecordFruitSoundState extends State<RecordFruitSound> {
     _mPlayer = null;
 
     _mRecorder!.closeRecorder();
-    _mRecorder = null;
+
     super.dispose();
   }
 
@@ -141,7 +147,7 @@ class _RecordFruitSoundState extends State<RecordFruitSound> {
     await _mRecorder!.stopRecorder().then((value) {
       setState(() {
         //var url = value;
-        _audioFile = File(_mPath);
+
         stopbool = true;
         _mplaybackReady = true;
       });
@@ -174,14 +180,13 @@ class _RecordFruitSoundState extends State<RecordFruitSound> {
 // ----------------------------- UI --------------------------------------------
 
    getRecorderFn() {
-    if (!_mRecorderIsInited || !_mPlayer!.isStopped) {
+    if ( !_mRecorderIsInited ) {
       return null;
     }
-    if (_mPlayer!.isStopped)
       return AiRecord();
-    else {
-      return stopRecorder();
-    }
+    // else {
+    //   return stopRecorder();
+    // }
   }
 
   Future AiRecord() async {
@@ -202,15 +207,12 @@ class _RecordFruitSoundState extends State<RecordFruitSound> {
 
   @override
   Widget build(BuildContext context) {
-
-    bool winPage = false;
-
     // Widget makeBody() {
     //   return
     // }
-    return Consumer4<ProviderExpressiveGame, ProviderGameAnswer,
-            ProviderLevelForm,ProviderAiSound>(
-        builder: (context, P_exp, P_gameAnswer, P_levelForm,P_AiSound, child) {
+    return Consumer5<ProviderExpressiveGame, ProviderGameAnswer,
+            ProviderLevelForm,ProviderAiSound,ProviderReceptiveGame>(
+        builder: (context, P_exp, P_gameAnswer, P_levelForm,P_AiSound,_Rec, child) {
       return Stack(children: [
         // Column(
         //   children: [
@@ -363,7 +365,7 @@ class _RecordFruitSoundState extends State<RecordFruitSound> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextCustom(
-                    title: "صف الصورة التي أمامك",
+                    title: "أذكر اسم الفاكهة التي أمامك",
                     fontsize: 20,
                     color: MyColor().gray),
                 SizedBoxCustom(),
@@ -388,27 +390,32 @@ class _RecordFruitSoundState extends State<RecordFruitSound> {
                   //onLongPress: getPlaybackFn,
                   onPressed: () async {
                     P_levelForm.startTalkWave(talkWave: true);
-                    await getRecorderFn();
+                    // await getRecorderFn();
+                    record();
+                    await Future.delayed(Duration(seconds: 5));
+                    stopRecorder();
+                    _audioFile = File(_mPath);
                      P_levelForm.startTalkWave(talkWave: false);
                      print('Ui stop recorder');
+                     print('audio file : ${_audioFile.path}');
                      await P_AiSound.GetAiSoundResult(audioFile: _audioFile, label: '${P_exp.expressiveModel.answer}');
                     // await aiFruitSound.PostFile(
                     //     audioFile: _audioFile, label: '${P_exp.expressiveModel.answer}');
 
                     //P_levelForm.startTalkWave(talkWave: false);
-                    FreeWidget().snackbar(
-                        context: context,
-                        content: 'Snack Show Message',
-                        duration: 3);
+                    // FreeWidget().snackbar(
+                    //     context: context,
+                    //     content: 'Snack Show Message',
+                    //     duration: 3);
                     print('Ui level complete:${P_AiSound.aiSoundResult.levelComplete}');
                     if(P_AiSound.aiSoundResult.levelComplete==true){
-                      P_levelForm.moveToNextGame(context: context,page: StartPage());
+                      P_levelForm.moveToNextGame(context: context,);
                       //P_levelForm.moveToNextGame(context: context,page: StartPage());
                     }
                     else{
                       P_levelForm.tryGameAgain();
                       setState(()=>anessHelpCounter++);
-                      if(anessHelpCounter >=1){
+                      if(anessHelpCounter >=2){
                         setState(()=>anessHelpBool =true);
                       }
                       else {
@@ -429,17 +436,20 @@ class _RecordFruitSoundState extends State<RecordFruitSound> {
                     child: Center(
                       child: P_levelForm.talkbutton
                           ? WaveImage()
-                          : Wrap(
+                          : Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                TextCustom(
-                                    title: 'اضغط للتحدث',
-                                    fontsize: 17,
-                                    color: MyColor().gray),
                                 Icon(
                                   Icons.mic,
                                   size: 25,
                                   color: MyColor().gray,
                                 ),
+                                TextCustom(
+                                    title: 'اضغط للتحدث',
+                                    fontsize: 17,
+                                    color: MyColor().gray),
+
                               ],
                             ),
                     ),

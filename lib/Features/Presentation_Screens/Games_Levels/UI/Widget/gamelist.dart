@@ -16,7 +16,7 @@ class GameList {
   static List<String> FruitNameArabic = ['تفاح', 'موز', 'مانجا', 'بطيخ'];
 
   static List<Widget> LevelFive = [
-    //TalkToAnees(),
+    TalkToAnees(),
     RecordFruitSound(),
     SelectFour(
         answerIndex: 3,
@@ -36,24 +36,24 @@ class GameList {
     DragOneItem(answerIndex: 3),
   ]; //  9 Games => 8 GameOne[ 1 + 2 + 2 + 2 ] +  1 GameTwo + 1 Game Three
   static List<Widget> LevelFour = [
-    //TalkToAnees(),
+    TalkToAnees(),
     RecordFruitSound(),
     SelectFour(
-        answerIndex: 3,
+        answerIndex: 0,
         fristFruitIndex: 1,
         secondFruitIndex: 3,
         thirdFruitIndex: 2,
         fourFruitIndex: 0),
     SelectThree(
-        answerIndex: 3,
+        answerIndex: 0,
         fristFruitIndex: 2,
         secondFruitIndex: 0,
         thirdFruitIndex: 3),
-    SelectTwo( answerIndex: 3,fristFruitIndex: 3, secondFruitIndex: 2),
+    SelectTwo( answerIndex: 0,fristFruitIndex: 0, secondFruitIndex: 2),
     DragThreeItem(
-        answerIndex: 3, fristImgIndex: 3, secondImgIndex: 0, thirdImgIndex: 1),
-    DragTwoItem(answerIndex: 3, fristImgIndex: 2, secondImgIndex: 3),
-    DragOneItem(answerIndex: 3),
+        answerIndex: 0, fristImgIndex: 3, secondImgIndex: 1, thirdImgIndex: 0),
+    DragTwoItem(answerIndex: 0, fristImgIndex: 0, secondImgIndex: 2),
+    DragOneItem(answerIndex: 0),
 
 
   ]; //  9 Games => 8 GameOne[ 1 + 2 + 2 + 2 ] +  1 GameTwo + 1 Game Three
@@ -129,8 +129,7 @@ class GameList {
 
   static List<Widget> levelZero = [
     // GameOneAnswer => index 3
-    //TalkToAnees(),
-    RecordFruitSound(),
+
     SelectFour(
         answerIndex: 1,
         fristFruitIndex: 0,
@@ -138,6 +137,8 @@ class GameList {
         thirdFruitIndex: 2,
         fourFruitIndex: 1),
     DragTwoItem(answerIndex: 1, fristImgIndex: 1, secondImgIndex: 3),
+    RecordFruitSound(),
+    TalkToAnees(),
 
 
 

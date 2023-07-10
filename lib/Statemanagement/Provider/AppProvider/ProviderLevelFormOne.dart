@@ -5,11 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:text_to_speech/text_to_speech.dart';
 
+import '../../../main.dart';
+import '../ApiProvider/AnessData/GameAnswer.dart';
+
 class ProviderLevelForm extends ChangeNotifier{
   //int LevelProgress =2;
   TabController? levelFormTabController ;
   int levelForminitPage=2;
 
+  int? levelMapGameIndex;
 
   TabController? startPageTapController;
   int startPageInitController=0;
@@ -24,7 +28,7 @@ class ProviderLevelForm extends ChangeNotifier{
 
   String name ='يا بطلْ';
   void ChildName({required String childName}){
-    name='يا '+childName;
+    name='يا '+'محمودْ';
     notifyListeners();
     print('Provider LevelForm Name : $name');
   }
@@ -60,22 +64,40 @@ class ProviderLevelForm extends ChangeNotifier{
     if(levelForminitPage<0){
       levelComplete=true;
       notifyListeners();
-       levelForminitPage=0;
+      levelForminitPage=0;
       startPageInitController=0;
       losepage = false;
-      await speak(text: '${WinWords[random.nextInt(WinWords.length)]}'+name);
+      await speak(text: '${WinWords[random.nextInt(WinWords.length)]}'+'$name');
       winpage=true;
       notifyListeners();
       await Future.delayed(Duration(seconds: 5));
       winpage=false;
-      notifyListeners();
       SliderProgress(progressValue: 12);
+      notifyListeners();
+        await navigationKey.currentContext!
+            .read<ProviderGameAnswer>()
+            .PostAnswerGame(
+            GameType: 'receptive', LevelNumber: levelMapGameIndex!);
+        await navigationKey.currentContext!
+            .read<ProviderGameAnswer>()
+            .PostAnswerGame(
+            GameType: 'expressive', LevelNumber: levelMapGameIndex!);
+        if(levelMapGameIndex! >= 4){
+          print('Enter Social Game');
+          await navigationKey.currentContext!
+              .read<ProviderGameAnswer>()
+              .PostAnswerGame(
+              GameType: 'social', LevelNumber: levelMapGameIndex!);
+        }
+        else print('you still Social Game ');
+
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>StartPage()));
       print('navigate to start page');
-    }else{
+    }
+    else{
       losepage = false;
       levelComplete=false;
-      await speak(text: '${WinWords[random.nextInt(WinWords.length)]}'+name);
+      await speak(text: '${WinWords[random.nextInt(WinWords.length)]}'+'$name');
       winpage=true;
       SliderProgress(progressValue: 12);
       notifyListeners();

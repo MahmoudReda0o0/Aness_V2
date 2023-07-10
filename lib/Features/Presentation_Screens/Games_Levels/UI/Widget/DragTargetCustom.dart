@@ -26,7 +26,7 @@ class _DragTargetCustomState extends State<DragTargetCustom> {
           child: DragTarget<String>(
             onAccept: (data) async {
               if(data == widget.dataAnswer) {
-                _.moveToNextGame(context: context,page: StartPage());
+                _.moveToNextGame(context: context,);
                 print('winbool: ${_.winpage}');
               }
               else{

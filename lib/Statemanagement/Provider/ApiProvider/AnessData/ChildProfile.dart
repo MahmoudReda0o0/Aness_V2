@@ -3,25 +3,31 @@ import 'package:flutter/material.dart';
 
 
 class ProviderChildProfile extends ChangeNotifier{
-  ChildProfileResult childProfileResult = ChildProfileResult();
-  ChildProfileApi childProfileApi = ChildProfileApi();
-  Future <ChildProfileResult>GetChildProfileData () async {
+  bool catchError = false;
+  ChildProfileResult? childProfileResult  ;
+  ChildProfileApi _childProfileApi = ChildProfileApi();
+  bool? dataLoaded;
+   GetChildProfileData () async {
     print('before sent Get ChildData request');
     try{
-      childProfileResult = await childProfileApi.GetChildProfileData();
+      childProfileResult = await _childProfileApi.GetChildProfileData();
       notifyListeners();
-      if(childProfileResult.hasError == false){
+      if(childProfileResult!.hasError == false){
         print('Provider ChildProfile Get Data');
         // return 'Child FristName : ${childProfileResult.childProfileModel!.userInfo!.firstName}';
-        return childProfileResult;
+        dataLoaded = true;
+        notifyListeners();
       }
       else{
-        print('Provider ChildProfile has Error :${childProfileResult.errorMessage}');
-        return childProfileResult;
+        print('Provider ChildProfile has Error :${childProfileResult!.errorMessage}');
+        dataLoaded = false;
+        notifyListeners();
       }
     }catch(e){
       print('Provider ChildProfile CatchError : $e');
-      return childProfileResult;
+      childProfileResult!.errorMessage = 'Provider ChildProfile CatchError : $e';
+      catchError=true;
+      notifyListeners();
     }
   }
 }

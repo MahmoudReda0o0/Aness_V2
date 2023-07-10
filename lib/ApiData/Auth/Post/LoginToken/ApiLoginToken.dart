@@ -44,13 +44,13 @@ class ApiLoginToken {
         loginApiResult.data =result;
       } else {
         loginApiResult.hasError = true ;
-        print('else error response status :${response.statusCode}');
-        print('else error response body :${response.body}');
+        print('login Api else error response status :${response.statusCode}');
+        print('login Api else error response body :${response.body}');
         loginApiResult.errorMessage ='response body has error';
       }
       return loginApiResult ;
     } catch (e) {
-      print('Print Error: ${e}');
+      print('login Api Print Error: ${e}');
       throw Exception('Throw Error : ${e}');
     }
   }

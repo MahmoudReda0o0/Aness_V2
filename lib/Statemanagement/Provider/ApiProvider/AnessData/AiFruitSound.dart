@@ -7,7 +7,7 @@ import '../../../../main.dart';
 
 class ProviderAiSound extends ChangeNotifier{
   AiSoundResult aiSoundResult =AiSoundResult();
-  AiFruitSound aiFruitSound = AiFruitSound();
+  AiSoundPredict aiFruitSound = AiSoundPredict();
 
   Future GetAiSoundResult ({required File audioFile,required String label}) async {
     try  {
@@ -16,10 +16,12 @@ class ProviderAiSound extends ChangeNotifier{
       if(aiSoundResult.hasError==false){
         if(aiSoundResult.aiSoundModel!.result![0]=='passed'){
           aiSoundResult.levelComplete = true;
+          print('provider ai sound levelcomplete : true');
           notifyListeners();
         }
         else {
           aiSoundResult.levelComplete = false;
+          print('provider ai sound levelcomplete : false');
           notifyListeners();
         }
       }else{

@@ -25,9 +25,9 @@ class ProfileSetting_s extends State<ProfileSetting> {
     super.initState();
     var childData = Provider.of<ProviderChildProfile>(context, listen: false)
         .childProfileResult;
-    _fristnameController.text = childData.childProfileModel!.userInfo!.firstName!;
-    _lastnameController.text = childData.childProfileModel!.userInfo!.lastName!;
-    _emailController.text = childData.childProfileModel!.userInfo!.email!;
+    _fristnameController.text = childData!.childProfileModel!.userInfo!.firstName!;
+    _lastnameController.text = childData!.childProfileModel!.userInfo!.lastName!;
+    _emailController.text = childData!.childProfileModel!.userInfo!.email!;
   }
 
   Widget build(BuildContext context) {
@@ -111,7 +111,7 @@ class ProfileSetting_s extends State<ProfileSetting> {
                   ),
                   Center(
                     child: Text(
-                      '${_.childProfileResult.childProfileModel!.userInfo!.username}',
+                      '${_.childProfileResult!.childProfileModel!.userInfo!.username}',
                       style: TextStyle(fontSize: 15, color: MyColor().gray),
                     ),
                   ),

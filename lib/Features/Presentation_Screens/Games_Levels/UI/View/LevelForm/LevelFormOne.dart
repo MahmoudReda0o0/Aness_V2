@@ -48,7 +48,8 @@ class _LevelFormState extends State<LevelForm> with TickerProviderStateMixin {
     super.initState();
     setState(() {
       final providerlevel = Provider.of<ProviderLevelForm>(context,listen: false);
-      providerlevel.name ='يا ${ Provider.of<ProviderChildProfile>(context,listen: false).childProfileResult.childProfileModel!.userInfo!.firstName!}';
+      providerlevel.levelMapGameIndex = widget.levelindex;
+      providerlevel.name ='يا ${ Provider.of<ProviderChildProfile>(context,listen: false).childProfileResult!.childProfileModel!.userInfo!.firstName!}ْ';
       providerlevel.tts =
           TextToSpeech();
       speak(text: '');
@@ -72,53 +73,53 @@ class _LevelFormState extends State<LevelForm> with TickerProviderStateMixin {
       builder: (context, _, _R, _E, _A, child) {
         _.levelindex = widget.levelindex;
         return Scaffold(
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              // double h = MediaQuery.of(context).size.height;
-              // double w = MediaQuery.of(context).size.width;
-              // print('h : $h');
-              // print('w : $w');
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: Column(
-                    children: [
-                      TextCustom(
-                          title:
-                              'Receptive Data : ${_R.apiReceptiveResult.responseData}',
-                          fontsize: 10,
-                          color: Colors.black),
-                      TextCustom(
-                        title:
-                            'Expressive Data : ${_E.apiExpressiveResult.responseData}',
-                        color: Colors.black,
-                        fontsize: 20,
-                      ),
-                      //Text('Start Page init: ${_.startPageInitController}'),
-                      Text('Level index : ${_.levelindex}'),
-                      Text('Game index : ${_.levelForminitPage}'),
-                      TextField(
-                        controller: conName,
-                        decoration: InputDecoration(hintText: 'أدخل اسم الطفل'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          String childname = conName.text + 'ْ ';
-                          print(childname);
-                          _.ChildName(childName: childname);
-                          Navigator.pop(context);
-                        },
-                        child: Center(
-                          child: Text('Save Name'),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-            child: FlutterLogo(),
-          ),
+          // floatingActionButton: FloatingActionButton(
+          //   onPressed: () {
+          //     // double h = MediaQuery.of(context).size.height;
+          //     // double w = MediaQuery.of(context).size.width;
+          //     // print('h : $h');
+          //     // print('w : $w');
+          //     showDialog(
+          //       context: context,
+          //       builder: (context) => AlertDialog(
+          //         title: Column(
+          //           children: [
+          //             TextCustom(
+          //                 title:
+          //                     'Receptive Data : ${_R.apiReceptiveResult.responseData}',
+          //                 fontsize: 10,
+          //                 color: Colors.black),
+          //             TextCustom(
+          //               title:
+          //                   'Expressive Data : ${_E.apiExpressiveResult.responseData}',
+          //               color: Colors.black,
+          //               fontsize: 20,
+          //             ),
+          //             //Text('Start Page init: ${_.startPageInitController}'),
+          //             Text('Level index : ${_.levelindex}'),
+          //             Text('Game index : ${_.levelForminitPage}'),
+          //             TextField(
+          //               controller: conName,
+          //               decoration: InputDecoration(hintText: 'أدخل اسم الطفل'),
+          //             ),
+          //             ElevatedButton(
+          //               onPressed: () {
+          //                 String childname = conName.text + 'ْ ';
+          //                 print(childname);
+          //                 _.ChildName(childName: childname);
+          //                 Navigator.pop(context);
+          //               },
+          //               child: Center(
+          //                 child: Text('Save Name'),
+          //               ),
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //     );
+          //   },
+          //   child: FlutterLogo(),
+          // ),
           body: Stack(
             children: [
               Container(
@@ -182,19 +183,7 @@ class _LevelFormState extends State<LevelForm> with TickerProviderStateMixin {
         'last Game index : ${navigationKey.currentContext!.read<ProviderLevelForm>().levelForminitPage}');
     print(
         'dispose LeveComplete : ${navigationKey.currentContext!.read<ProviderLevelForm>().levelComplete}');
-    if (navigationKey.currentContext!.read<ProviderLevelForm>().levelComplete ==
-        true) {
-      await navigationKey.currentContext!
-          .read<ProviderGameAnswer>()
-          .PostAnswerGame(
-              GameType: 'receptive', LevelNumber: widget.levelindex);
-      await navigationKey.currentContext!
-          .read<ProviderGameAnswer>()
-          .PostAnswerGame(
-              GameType: 'expressive', LevelNumber: widget.levelindex);
-    } else {
-      print('you have not Complete This Level yet');
-    }
+
     print('level Form Dispose');
     // Post AnswerRequest depend on LevelIndex
   }

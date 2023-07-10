@@ -65,7 +65,7 @@ class _LoginState extends State<Login> {
     else{
       if (CheckBoxValue == true ) {
         print('shared if under check boxValue');
-        await Provider.of<ProviderLoginToken>(context, listen: false).Login(
+        await Provider.of<ProviderLoginToken>(context, listen: false).login(
           email: Email!,
           password: Pass!,
         );
@@ -104,17 +104,14 @@ class _LoginState extends State<Login> {
     Shared_GetData();
     Shared_Navigate();
   }
-
-
-
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height;
     double _width = MediaQuery.of(context).size.width;
     double keyboard = MediaQuery.of(context).viewInsets.bottom;
-    final providerLogin = Provider.of<ProviderLoginToken>(context);
+    //final providerLogin = Provider.of<ProviderLoginToken>(context);
     return Consumer2<ProviderLoginToken,ProviderChildProfile>(builder: (context,_,ch,child){
-      if (providerLogin.state == LoginTokenState.initial ||
-          providerLogin.state == LoginTokenState.error) {
+      if (_.state == LoginTokenState.initial ||
+          _.state == LoginTokenState.error) {
         print('init and error print : ${Provider.of<ProviderLoginToken>(context,listen: false).state}');
         return GestureDetector(
           onTap: () {
@@ -201,7 +198,7 @@ class _LoginState extends State<Login> {
                         if (_formKey.currentState!.validate()) {
                           print('Enter if form key');
                           // await _.AccountRegisterProvider();
-                          await _.Login(
+                          await _.login(
                             email: _emailConntroller.text,
                             password: _passwordController.text,
                           );
@@ -377,10 +374,10 @@ class _LoginState extends State<Login> {
           ),
         );
       }     // State initial or error
-      else if( providerLogin.state == LoginTokenState.loaded){
-        print('loaded print : ${Provider.of<ProviderLoginToken>(context,listen: false).state}');
-        return StartPage();
-      } // State Loaded
+      // else if( _.state == LoginTokenState.loaded){
+      //   print('loaded print : ${Provider.of<ProviderLoginToken>(context,listen: false).state}');
+      //   return StartPage();
+      // } // State Loaded
       else {
         return Container(
           height: MyPageSize.height(context),

@@ -18,7 +18,7 @@ class AiSoundResult{
 }
 
 
-class AiFruitSound {
+class AiSoundPredict {
   var headers = {
     'Authorization': 'JWT $GlobalAccessToken'
   };
